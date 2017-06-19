@@ -1,0 +1,156 @@
+<div id="navbar" class="navbar navbar-default          ace-save-state navbar-fixed-top">
+    <div class="navbar-container ace-save-state" id="navbar-container">
+        <div class="navbar-header pull-left">
+            <a href="index.html" class="navbar-brand">
+                <small>
+							<i class="fa fa-home"></i>
+							{{title}}
+						</small>
+            </a>
+
+            <!--<button class="pull-right navbar-toggle navbar-toggle-img collapsed" type="button" data-toggle="collapse" data-target=".navbar-buttons,.navbar-menu">
+						<span class="sr-only">Toggle user menu</span>
+
+						<img src="assets/images/avatars/user.jpg" alt="Jason's Photo" />
+					</button>-->
+
+            <button class="pull-right navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#sidebar">
+						<span class="sr-only">Toggle sidebar</span>
+
+						<span class="icon-bar"></span>
+
+						<span class="icon-bar"></span>
+
+						<span class="icon-bar"></span>
+					</button>
+        </div>
+
+
+        <nav role="navigation" class="navbar-menu pull-left collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+
+                <!--<li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								Overview
+	  		&nbsp;
+								<i class="ace-icon fa fa-angle-down bigger-110"></i>
+							</a>
+
+                    <ul class="dropdown-menu dropdown-light-blue dropdown-caret">
+                        <li>
+                            <a href="#">
+                                <i class="ace-icon fa fa-eye bigger-110 blue"></i> Monthly Visitors
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="ace-icon fa fa-user bigger-110 blue"></i> Active Users
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="ace-icon fa fa-cog bigger-110 blue"></i> Settings
+                            </a>
+                        </li>
+                    </ul>
+                </li>-->
+
+                <!--<li>
+                    <a routerLink="/It" routerLinkActive="active">
+                        <i class="ace-icon fa fa-envelope"></i> IT แจ้งซ่อม
+                        <span class="badge badge-warning">{{a}}</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/Sup" routerLinkActive="active">
+                        <i class="ace-icon fa fa-envelope"></i> แจ้งส่งซ่อม(พัสดุ)
+                        <span class="badge badge-warning">{{cc}}</span>
+                    </a>
+                </li>-->
+            </ul>
+        </nav>
+        <!--<div class="navbar-buttons navbar-header pull-right  collapse navbar-collapse" role="navigation">
+            <ul class="nav ace-nav">
+                <li *ngIf="!_dt.isLog">
+                    <a routerLink="/Login" routerLinkActive="active">
+                        <i class="ace-icon fa fa-lock"></i> เข้าสู่ระบบ
+                    </a>
+                </li>
+                <li *ngIf="_dt.isLog">
+                    <a routerLink="/Logout" routerLinkActive="active">
+                        <i class="ace-icon fa fa-unlock"></i> ออกจากระบบ
+                    </a>
+                </li>
+            </ul>
+        </div>-->
+    </div>
+    <!-- /.navbar-container -->
+</div>
+
+<div class="main-container ace-save-state" id="main-container">
+
+    <div id="sidebar" class="sidebar      h-sidebar                navbar-collapse collapse          ace-save-state">
+
+
+        <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+
+        </div>
+        <!-- /.sidebar-shortcuts -->
+
+        <ul class="nav nav-list">
+            <li class="active hover">
+                <a routerLink="/" routerLinkActive="active">
+                    <i class="menu-icon fa fa-home"></i>
+                    <span class="menu-text"> เพิ่ม/ลบ/แก้ไข </span>
+                </a>
+
+                <b class="arrow"></b>
+            </li>
+        </ul>
+        <!-- /.nav-list -->
+    </div>
+
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="page-content">
+                <!-- /.ace-settings-container -->
+                <router-outlet></router-outlet>
+                <!-- /.page-header -->
+
+
+                <!-- /.row -->
+            </div>
+            <!-- /.page-content -->
+        </div>
+    </div>
+    <!-- /.main-content -->
+
+    <div class="footer">
+        <div class="footer-inner">
+            <div class="footer-content">
+                <span class="bigger-120">
+							<span class="blue bolder">Ace</span> Application &copy; 2013-2014
+                </span>
+
+                &nbsp; &nbsp;
+                <span class="action-buttons">
+
+
+							<a href="https://www.facebook.com/DoctorComThailand/" target="_blank">
+								<i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+							</a>
+
+							<a href="https://www.youtube.com/channel/UCc6Lj6KTbWYYGLGzKkYt5Gg" target="_blank">
+								<i class="ace-icon fa fa-youtube-play text-danger bigger-150"></i>
+							</a>
+						</span>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+    </a>
+</div>

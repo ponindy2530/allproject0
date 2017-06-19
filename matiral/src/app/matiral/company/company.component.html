@@ -1,0 +1,228 @@
+<div class="row" *ngIf="loading">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 h1 center">
+        <br />
+        <br />
+        <br />
+        <br /> กำลังโหลดข้อมูล...
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div *ngIf="!loading">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+            </li>
+            <li class="active">เพิ่ม/แก้ไขรายชื่อบริษัท ร้านค้า</li>
+        </ul>
+        <!-- /.breadcrumb -->
+
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+            </form>
+        </div>
+        <!-- /.nav-search -->
+    </div>
+    <br />
+    <form (ngSubmit)="save();" #matiral="ngForm">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="widget-box ui-sortable-handle" id="widget-box-4">
+                    <div class="widget-header widget-header-large">
+                        <h4 class="widget-title"> <i class="fa fa-pause"></i> เพิ่ม/แก้ไขรายชื่อบริษัท ร้านค้า</h4>
+
+                        <div class="widget-toolbar">
+
+                        </div>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="control-label input-label txred" for="id_company"><b>รหัสผู้ขาย <span>*</span></b></label>
+                                            <input type="text" class="form-control" [(ngModel)]="model.id_company" id="id_company" name="id_company" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="control-label input-label txred" for="name_company_th"><b>ชื่อผู้ขาย (ไทย) <span>*</span></b></label>
+                                            <input type="text" class="form-control" [(ngModel)]="model.name_company_th" id="name_company_th" name="name_company_th" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label input-label" for="name_company_en"><b>ชื่อผู้ขาย (Eng)</b></label>
+                                            <input type="text" class="form-control" [(ngModel)]="model.name_company_en" id="name_company_en" name="name_company_en">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="control-label input-label" for="typecom"><b>ประเภทกลุ่มผู้ขาย <a href="" data-toggle="modal" data-target="#myModal">  [...+] </a></b></label>
+                                            <select class="form-control selwid" [(ngModel)]="model.typecom" id="typecom" name="typecom">
+                      <option *ngFor="let item of models101;let i=index"  [value]="item.id">{{item.id_typecom}} - {{item.name_typecom}}</option>   
+                    </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label input-label txred" for="tol"><b>หมยเลขโทรศัพท์ <span>*</span></b></label>
+                                            <input type="text" class="form-control" [(ngModel)]="model.tol" id="tol" name="tol" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label input-label" for="fax"><b>หมายเลขแฟกซ์</b></label>
+                                            <input type="text" class="form-control" [(ngModel)]="model.fax" id="fax" name="fax">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="control-label input-label" for="cid_company"><b>รหัสประจำตัวผู้เสียภาษี</b></label>
+                                            <input type="text" class="form-control" [(ngModel)]="model.cid_company" id="cid_company" name="cid_company">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="control-label input-label txred" for="address"><b>ที่อยู่ผู้ขาย <span>*</span></b></label>
+                                            <textarea class="form-control" [(ngModel)]="model.address" id="address" name="address" rows="4" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <button class="btn btn-primary btn-block">บันทึกข้อมูล</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </form>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget-box ui-sortable-handle" id="widget-box-4">
+                <div class="widget-header widget-header-large">
+                    <h4 class="widget-title"> <i class="fa fa-desktop"></i> รายการบริษัท ร้านค้า</h4>
+
+                    <div class="widget-toolbar">
+
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <p-dataTable [value]="models100" [rows]="10" [rowsPerPageOptions]="[10,50,100,200,300]" [paginator]="true" [globalFilter]="gb" #dt>
+                            <p-column header="ลำดับ" [style]="{'width':'60px','text-align':'center'}">
+                                <template let-col let-rowData="rowData" let-rowIndex="rowIndex" pTemplate="body">
+                    {{rowIndex+1}}   
+              </template>
+                            </p-column>
+                            <p-column field="id_company" header="รหัสผู้ขาย" [sortable]="true" [style]="{'width':'150px','text-align':'center'}"></p-column>
+                            <p-column field="name_company_th" header="ชื่อผู้ขาย(ไทย)" [sortable]="true"></p-column>
+                            <p-column field="name_company_en" header="ชื่อผู้ขาย(Eng)" [sortable]="true"></p-column>
+                            <p-column header="ประเภทผู้ขาย" [sortable]="true">
+                                <template let-car="rowData" let-rowIndex="rowIndex" pTemplate="body">
+ {{car.id_typecom}}-{{car.name_typecom}}
+        </template>
+                            </p-column>
+                            <p-column field="tol" header="หมายเลขโทรศัพท์" [sortable]="true"></p-column>
+                            <p-column field="fax" header="หมายเลขแฟกซ์" [sortable]="true"></p-column>
+                            <p-column field="cid_company" header="รหัสประจำตัวผู้เสียภาษี" [sortable]="true"></p-column>
+                            <p-column field="address" header="ที่อยู่ผู้ขาย" [sortable]="true"></p-column>
+
+                            <p-column styleClass="col-button" header="ตัวเลือก" [style]="{'width':'120px','text-align':'center'}">
+                                <template let-car="rowData" let-rowIndex="rowIndex" pTemplate="body">
+
+                                  <a href="javascript:void(0);" tooltipPosition="top"   (click)="delete(car)" pTooltip="ลบข้อมูล">
+                <i class="ace-icon fa fa-trash-o fa-2x text-danger"></i> |
+                    </a>
+                    <a href="javascript:void(0);" tooltipPosition="top"   (click)="getedit(car)" pTooltip="แก้ไขข้อมูล">
+                <i class="ace-icon fa fa-pencil-square-o fa-2x text-success"></i>
+                    </a>
+        </template>
+                            </p-column>
+                        </p-dataTable>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">เพิ่มประเภทกลุ่มผู้ขาย</h4>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="save1();" #matiral="ngForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="control-label input-label txred" for="id_typecom"><b>รหัสประเภทกลุ่มผู้ขาย <span>*</span></b></label>
+                            <input type="text" class="form-control" [(ngModel)]="model1.id_typecom" id="id_typecom" name="id_typecom" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label input-label txred" for="name_typecom"><b>ชื่อประเภทกลุ่มผู้ขาย<span>*</span></b></label>
+                            <input type="text" class="form-control" [(ngModel)]="model1.name_typecom" id="name_typecom" name="name_typecom">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"><button class="btn btn-primary btn-block">บันทึกข้อมูล</button></div>
+                        <div class="col-md-4"></div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="header smaller lighter red">
+                            <i class="fa fa-desktop"></i> รายการประเภทกลุ่มผู้ขาย
+                        </h3>
+                        <div class="table-responsive" style="overflow-y: auto; height: 300px;">
+                            <table class="table table-bordered table-condensed table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>รหัสประเภทกลุ่มผู้ขาย</th>
+                                        <th>ชื่อประเภทกลุ่มผู้ขาย</th>
+                                        <th>ปรับปรุง</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let item of models101;let i=index">
+                                    <tr>
+                                        <td>{{i+1}}</td>
+                                        <td>{{item.id_typecom}}</td>
+                                        <td>{{item.name_typecom}}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs btn-info" (click)="getedit1(item);">
+									                <i class="ace-icon fa fa-pencil bigger-120"></i>
+								                </button>
+                                                <button class="btn btn-xs btn-danger" (click)="delete1(item,i);">
+									                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+								                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>

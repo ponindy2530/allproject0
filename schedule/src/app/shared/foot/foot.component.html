@@ -1,0 +1,53 @@
+<div class="boxFloat">
+    <div class="boxLogout" *ngIf="tokenSignature">
+        <p>ยินดีต้อนรับ, <b>คุณ:{{payload.FIRSTNAME}} {{payload.LASTNAME}} {{payload.HOSPNAME}}</b></p>
+        <ul class="liList">
+            <!--<li><a routerLink="/" routerLinkActive="active">โปรไฟล์</a></li>
+            <li><a routerLink="/" routerLinkActive="active">แก้ไขข้อมูลส่วนตัว</a></li>-->
+            <a routerLink="/ManuAdmin" routerLinkActive="active" class="btn btn-primary btn-xs" *ngIf="ckuser">เมนูสำหรับ Admin</a>
+            <a routerLink="/ManuUser" routerLinkActive="active" class="btn btn-primary btn-xs" *ngIf="!ckuser">เมนูสำหรับ User</a>
+            <hr />
+        </ul>
+        <!--<a routerLink="/Login" routerLinkActive="active" class="btn btn-logout btn-xs" *ngIf="!_dt.isLog">Login</a>
+        <a routerLink="/Logout" routerLinkActive="active" class="btn btn-logout btn-xs" *ngIf="_dt.isLog">Logout</a>-->
+        <a href="javascript:void(0)" (click)="logout()" class="btn btn-logout btn-xs">Logout</a>
+    </div>
+    <div class="boxLogout" *ngIf="!tokenSignature">
+        <a href="javascript:void(0)" (click)="logout()" class="btn btn-logout btn-xs">Logout</a>
+        <a [href]="loginpage" class="btn btn-logout btn-xs">Login</a>
+    </div>
+    <div class="boxLikeView">
+        <div class="blv">
+            <h4>ยอดรวม ผู้เข้าชม ทั้งหมด</h4>
+
+        </div>
+        <ul>
+            <li class="blv-con">
+                <span class="blv-num">6,975,715</span>
+                <span class="blv-text">View</span>
+            </li>
+        </ul>
+        <ul>
+            <li class="blv-con">
+                <span class="blv-num">249</span>
+                <span class="blv-text">Like</span>
+            </li>
+        </ul>
+        <div class="blv">
+            <h4>ยอดรวม ผู้เข้าชม สัปดาห์นี้</h4>
+        </div>
+        <ul>
+
+            <li class="blv-con">
+                <span class="blv-num">0</span>
+                <span class="blv-text">View</span>
+            </li>
+        </ul>
+        <ul>
+            <li class="blv-con">
+                <span class="blv-num">0</span>
+                <span class="blv-text">Like</span>
+            </li>
+        </ul>
+    </div>
+</div>

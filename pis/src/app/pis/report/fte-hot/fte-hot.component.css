@@ -1,0 +1,44 @@
+.coltr {
+    background-color: #FFEB3B;
+    font-weight: bolder;
+}
+
+.siimg {
+    width: 60px;
+    height: 60px;
+}
+
+.col1 {
+    background-color: #55BF3B;
+    font-weight: bolder;
+}
+
+.col2 {
+    background-color: #DF5353;
+    font-weight: bolder;
+}
+
+.col3 {
+    background-color: #DDDF0D;
+    font-weight: bolder;
+}
+
+.bisix {
+    width: 50px;
+}
+
+.trw50 {
+    width: 50px;
+}
+
+.trw80 {
+    width: 80px;
+}
+
+.trmw200 {
+    min-width: 150px;
+}
+
+.ckcol {
+    background-color: #EEEEEE;
+}

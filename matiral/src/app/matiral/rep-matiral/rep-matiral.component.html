@@ -1,0 +1,319 @@
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+        </li>
+        <li class="active">รายการครุภัณฑ์ทั้งหมด</li>
+    </ul>
+    <!-- /.breadcrumb -->
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+<br />
+<div class="col-sm-12 infobox-container">
+    <div class="infobox infobox-green">
+        <div class="infobox-icon">
+            <i class="ace-icon fa fa-comments"></i>
+        </div>
+
+        <div class="infobox-data">
+            <span class="infobox-data-number">{{a|number}}</span>
+            <div class="infobox-content">ครุภัณฑ์ทั้งหมด</div>
+        </div>
+    </div>
+
+    <div class="infobox infobox-blue">
+        <div class="infobox-icon">
+            <i class="ace-icon fa fa-twitter"></i>
+        </div>
+
+        <div class="infobox-data">
+            <span class="infobox-data-number">{{b|number}}</span>
+            <div class="infobox-content">ครุภัณฑ์ใช้งานอยู่</div>
+        </div>
+    </div>
+
+    <div class="infobox infobox-pink">
+        <div class="infobox-icon">
+            <i class="ace-icon fa fa-shopping-cart"></i>
+        </div>
+
+        <div class="infobox-data">
+            <span class="infobox-data-number">{{c|number}}</span>
+            <div class="infobox-content">ครุภัณฑ์ไม่ใช้งาน</div>
+        </div>
+    </div>
+
+    <div class="infobox infobox-red">
+        <div class="infobox-icon">
+            <i class="ace-icon fa fa-flask"></i>
+        </div>
+
+        <div class="infobox-data">
+            <span class="infobox-data-number">{{d|number}}</span>
+            <div class="infobox-content">ครุภัณฑ์อายุ 5 ปีขึ้นไป</div>
+        </div>
+    </div>
+
+    <div class="infobox infobox-orange2">
+        <div class="infobox-chart">
+            <span class="sparkline"></span>
+        </div>
+
+        <div class="infobox-data">
+            <span class="infobox-data-number">{{e|number}}บาท</span>
+            <div class="infobox-content">รวมราคา</div>
+        </div>
+    </div>
+</div>
+<br /><br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget-box ui-sortable-handle" id="widget-box-4">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title">รายการครุภัณฑ์ทั้งหมด</h4>
+
+                <div class="widget-toolbar">
+
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>วันที่ลงทะเบียน</th>
+                                    <th>รูปภาพ</th>
+                                    <th>รหัสครุภัณฑ์</th>
+                                    <th>ชื่อครุภัณฑ์</th>
+                                    <th>รายละเอียด</th>
+                                    <th>ชื่อผู้รับผิดชอบ</th>
+                                    <th>ประวัติการซ่อม</th>
+                                    <th>อายุการใช้งาน</th>
+                                    <th>สถานะ</th>
+                                    <th>ราคา(บาท)</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of models;let i=index">
+                                <tr>
+                                    <td>{{i+1}}</td>
+                                    <td>{{item.DATE_SERV}}</td>
+                                    <td><img src="http://203.157.182.17/yiiapi/images/matira/{{item.IMGS}}" class="siimg img-thumbnail"></td>
+                                    <td>{{item.MATIRALCODE_FULL}}</td>
+                                    <td>{{item.MATIRALNAME}}</td>
+                                    <td><button type="button" class="btn btn-white btn-sm" data-toggle="modal" data-target="#myModal" (click)="clickshow(item);">ดูรายละเอียด</button></td>
+                                    <td>{{item.fullname}}<br />{{item.groupnamessj}}</td>
+                                    <td><button class="btn btn-white btn-primary btn-sm" data-toggle="modal" data-target="#myModal2" (click)="clickshow2(item);">ประวัติการซ่อม {{item.a|number}} ครั้ง</button></td>
+                                    <td>
+                                        <button type="button" class="btn btn-white btn-danger btn-sm" *ngIf="item.date_age>=5">{{item.date_age}} ปี</button>
+                                        <button type="button" class="btn btn-white btn-warning btn-sm" *ngIf="item.date_age>=3&&item.date_age<=4">{{item.date_age}} ปี</button>
+                                        <button type="button" class="btn btn-white btn-success btn-sm" *ngIf="item.date_age<=2">{{item.date_age}} ปี</button>
+                                    </td>
+                                    <td>
+                                        <span class="label label-lg label-danger arrowed" *ngIf="item.DISTRIBUTE!=9">{{item.name_distribute}}</span>
+                                        <span class="label label-lg label-success arrowed" *ngIf="item.DISTRIBUTE==9">{{item.name_distribute}}</span>
+                                    </td>
+                                    <td>{{item.PRICE|number}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngFor="let item of models1h;let k=index">
+                                <tr>
+                                    <th colspan="10">รวม</th>
+                                    <td *ngFor="let item2 of models1h | keys;let l=index">
+                                        <span>{{models|sums:item2|number}}</span>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">รายละเอียด:ครุภัณฑ์</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" *ngFor="let item of modelsev">
+                        <div class="col-md-2">
+                            <div>
+                                <span class="profile-picture">
+<img src="http://203.157.182.17/yiiapi/images/matira/{{item.IMGS}}" class="siimg2 img-thumbnail">
+												</span>
+
+                                <div class="space-4"></div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>วันที่ลงทะเบียน :</td>
+                                    <td>{{item.DATE_SERV}}</td>
+                                </tr>
+                                <tr>
+                                    <td>รหัสครุภัณฑ์ :</td>
+                                    <td>{{item.MATIRALCODE_FULL}}</td>
+                                </tr>
+                                <tr>
+                                    <td>ชื่อครุภัณฑ์ :</td>
+                                    <td>{{item.MATIRALNAME}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>หน่วยนับ :</td>
+                                    <td>{{item.name_unit}}</td>
+                                </tr>
+                                <tr>
+                                    <td>ขนาด :</td>
+                                    <td>{{item.SIZE}}</td>
+                                </tr>
+                                <tr>
+                                    <td>รุ่น / ยี่ห้อ :</td>
+                                    <td>{{item.BRAND}}</td>
+                                </tr>
+                                <tr>
+                                    <td>การสิ้นสุดรับประกัน(ปี) :</td>
+                                    <td>{{item.END_DATE}} ปี</td>
+                                </tr>
+                                <tr>
+                                    <td>หมายเลขเครื่อง :</td>
+                                    <td>{{item.SERIAL}} :</td>
+                                </tr>
+                                <tr>
+                                    <td>รายละเอียด</td>
+                                    <td>{{item.DETAIL}} :</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-5">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>วิธีที่การจัดหา :</td>
+                                    <td>{{item.name_supply}}</td>
+                                </tr>
+                                <tr>
+                                    <td>ประเภทเงินที่ซื้อ :</td>
+                                    <td>{{item.name_money}}</td>
+                                </tr>
+                                <tr>
+                                    <td>ราคาต่อหน่วย :</td>
+                                    <td>{{item.PRICE|number}} บาท</td>
+                                </tr>
+                                <tr>
+                                    <td>ชื่อผู้รับผิดชอบ/ฝ่าย :</td>
+                                    <td>{{item.fullname}} - {{item.groupnamessj}}</td>
+                                </tr>
+                                <tr>
+                                    <td>สถานะการจำหน่าย :</td>
+                                    <td>{{item.name_distribute}}</td>
+                                </tr>
+                                <tr>
+                                    <td>วันที่จำหน่าย :</td>
+                                    <td>{{item.D_DISTRIBUTE}}</td>
+                                </tr>
+                                <tr>
+                                    <td>ชื่อบริษัทที่/จำหน่าย :</td>
+                                    <td>{{item.id_company}} - {{item.name_company_th}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">ประวัติการซ่อม</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>วันที่ซ่อม</th>
+                                    <th>ชื่อครุภัณฑ์</th>
+                                    <th>อาการเสีย</th>
+                                    <th>วิธีแก้ปัญหา</th>
+                                    <th>ใบแจ้งซ่อม</th>
+                                    <th>ใบแจ้งหนี้</th>
+                                    <th>ผู้ดำเนินการ</th>
+                                    <th>สถานะการซ่อม</th>
+                                    <th>ค่าใช้จ่ายการซ่อม</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of modelsev2; let i=index">
+                                <tr>
+                                    <td>{{i+1}}</td>
+                                    <td>{{item.DATE_SERV}}</td>
+                                    <td>{{item.MATIRALCODE_FULL}} - {{item.MATIRALNAME}}</td>
+                                    <td>{{item.ACTION}}</td>
+                                    <td>{{item.COMMENT}}</td>
+                                    <td>
+                                        <a href="http://203.157.182.17/yiiapi/images/sheet/{{item.SHEET}}" target="_blank" *ngIf="item.SHEET!=''">
+                                            <i class="fa fa-file-pdf-o fa-2x text-warning"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="http://203.157.182.17/yiiapi/images/invoice/{{item.INVOICE}}" target="_blank" *ngIf="item.INVOICE!=''">
+                                            <i class="fa fa-file-pdf-o fa-2x text-success"></i>
+                                        </a>
+                                    </td>
+                                    <td>{{item.fullname}}</td>
+                                    <td>
+                                        <span class="label label-success arrowed" *ngIf="item.STATUS==3&&item.stz==1">ซ่อมเอง</span>
+                                        <span class="label label-primary arrowed" *ngIf="item.STATUS==3&&item.stz==2">ร้านซ่อม</span>
+                                    </td>
+                                    <td>{{item.EXPENS}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngFor="let item of models1h2;let k=index">
+                                <tr>
+                                    <th colspan="9">รวม</th>
+                                    <td *ngFor="let item2 of models1h2 | keys;let l=index">
+                                        <span>{{modelsev2|sums:item2|number}}</span>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>

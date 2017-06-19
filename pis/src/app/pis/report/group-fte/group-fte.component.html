@@ -1,0 +1,169 @@
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+        </li>
+        <li class="active">กลุ่มตำแหน่ง FTE รายโรงพยาบาล</li>
+    </ul>
+    <!-- /.breadcrumb -->
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+<br />
+
+
+
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 widget-container-col ui-sortable" id="widget-container-col-4">
+
+        <div class="widget-box ui-sortable-handle" id="widget-box-4">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title">กลุ่มตำแหน่ง FTE รายโรงพยาบาล</h4>
+
+                <div class="widget-toolbar">
+                    <button class="btn btn-xs btn-light bigger" (click)="getres();">
+															<i class="ace-icon fa fa-arrow-left"></i>
+														กลุ่มตำแหน่ง FTE รายโรงพยาบาล ทั้งหมด
+														</button>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="3">#</th>
+                                            <th rowspan="3">รหัส</th>
+                                            <th rowspan="3">ชื่อตำแหน่ง</th>
+                                            <th colspan="8">&nbsp;</th>
+                                            <th rowspan="3" width="50">ลาศึกษา</th>
+                                            <th width="100" rowspan="3">รวมทั้งหมด</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="6">&nbsp;</th>
+                                            <th rowspan="2" width="50">ลจ.ชค (รว)</th>
+                                            <th width="100" rowspan="2">รวม (ไม่รวมลาศึกษา)</th>
+                                        </tr>
+                                        <tr>
+                                            <th width="50">ขรก.</th>
+                                            <th width="50">พงก.</th>
+                                            <th width="50">พกส.</th>
+                                            <th width="50">ลจ.ปจ</th>
+                                            <th width="50">ลจ.ชค (รด)</th>
+                                            <th width="100">รวม (ไม่รวม ลาศึกษา /ลจ.ชค (รว))</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let item of models;let i=index">
+                                        <tr (click)="clickcoli(i)" [ngClass]="{coltr: i==coli}">
+                                            <td>{{i+1}}</td>
+                                            <td *ngFor="let item2 of models | keys;let j=index" [ngClass]="{ckcol: item[item2]==0}">
+                                                <span *ngIf="j<2">{{item[item2]}}</span>
+                                                <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="clickshow(j,item.id_position,hc)" *ngIf="j>=2">{{item[item2]}}</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot *ngFor="let item of modelsh;let i=index">
+                                        <tr>
+                                            <th colspan="3">รวม</th>
+                                            <td *ngFor="let item2 of modelsh | keys;let j=index">
+                                                {{models|sums:item2|number}}
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>รหัส</th>
+                                            <th>ชื่อสถานบริการ</th>
+                                            <th width="100">จำนวน</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let item of models1;let k=index">
+                                        <tr (click)="clickcolk(k,item.hcode)" [ngClass]="{coltr: k==colk}">
+                                            <td *ngFor="let item2 of models1 | keys;let l=index">
+                                                <span *ngIf="l<2">{{item[item2]}}</span>
+                                                <span *ngIf="l>=2" class="badge badge-info bisix">{{item[item2]}}</span>
+                                                <!--<a href="javascript:void(0);" *ngIf="l>=2">{{item[item2]}}</a>-->
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot *ngFor="let item of models1h;let k=index">
+                                        <tr>
+                                            <th colspan="2">รวม</th>
+                                            <td *ngFor="let item2 of models1h | keys;let l=index">
+                                                <span class="badge badge-info bisix">{{models1|sums:item2|number}}</span>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">รายชื่อบุคลากร:กลุ่มตำแหน่ง FTE รายโรงพยาบาล</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>รูปภาพ</th>
+                                                            <th>ประเภทบุคลากร</th>
+                                                            <th>ชื่อ - นามสกุล</th>
+                                                            <th>สถานที่ปฎิบัติงานจริง</th>
+                                                            <th>ตำแหน่ง</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let item of models3;let m=index">
+                                                        <tr (click)="clickcolm(m)" [ngClass]="{coltr: m==colm}">
+                                                            <td>{{m+1}}</td>
+                                                            <td *ngFor="let item2 of models3 | keys;let n=index">
+                                                                <img *ngIf="n<1" src="http://164.115.22.73/p/pis-v4/images/img/{{item[item2]}}" class="siimg img-thumbnail" />
+                                                                <span *ngIf="n>=1">{{item[item2]}}</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

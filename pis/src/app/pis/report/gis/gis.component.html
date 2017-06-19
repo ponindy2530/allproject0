@@ -1,0 +1,249 @@
+<div class="row" *ngIf="loading">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 h1 center">
+        <br />
+        <br />
+        <br />
+        <br /> กำลังโหลดข้อมูล...
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div *ngIf="!loading">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+            </li>
+            <li class="active">GIS(สสอ.) สายวิชาชีพ</li>
+        </ul>
+        <!-- /.breadcrumb -->
+
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+            </form>
+        </div>
+        <!-- /.nav-search -->
+    </div>
+    <br />
+
+
+
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 widget-container-col ui-sortable" id="widget-container-col-4">
+
+            <div class="widget-box ui-sortable-handle" id="widget-box-4">
+                <div class="widget-header widget-header-large">
+                    <h4 class="widget-title"> <i class="ace-icon fa fa-chevron-circle-right"></i> GIS(สสอ.) สายวิชาชีพ</h4>
+
+                    <div class="widget-toolbar">
+                        <button class="btn btn-sm  btn-primary btn-white" (click)="getres();">
+														<i class="ace-icon fa fa-link"></i>
+														GIS(สสอ.) สายวิชาชีพ
+														</button>
+                        <button class="btn btn-sm  btn-primary btn-white" routerLink="/GisSo" routerLinkActive="active">
+													<i class="ace-icon fa fa-link"></i>
+														GIS(สสอ.) สายสนับสนุน
+														</button>
+                        <div class="btn-group">
+                            <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle" aria-expanded="false">
+													   <i class="ace-icon fa fa-th-list"></i>
+                                                    เลือกสถานบริการ
+													<span class="ace-icon fa fa-caret-down icon-on-right"></span>
+												</button>
+
+                            <ul class="dropdown-menu dropdown-default">
+                                <li>
+                                    <a href="javascript:void(0)" (click)="getres();">สสอ.ทั้งหมด</a>
+                                </li>
+
+                                <li *ngFor="let item of models2;let k=index" [ngClass]="{coltr: k==colk}">
+                                    <a href="javascript:void(0)" (click)="clickcolk(k,item.hcode);">{{item.hname}}</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="2">#</th>
+                                                <th rowspan="2">รหัส</th>
+                                                <th rowspan="2" class="trmw200">สถานบริการ</th>
+                                                <th rowspan="2">ประชากร</th>
+                                                <th rowspan="2">รพ.สต.</th>
+                                                <th rowspan="2">สสอ</th>
+                                                <th rowspan="2">ผช. สสอ.</th>
+                                                <th rowspan="2">ผอ.รพ.สต.</th>
+                                                <th rowspan="2">รก.</th>
+                                                <th rowspan="2">รวมทั้งหมด (บริหาร)</th>
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="3" class="hcol">นักวิชาการสาธารณสุข(62503)</th>
+                                                <th rowspan="2">รวม</th>
+                                                <th colspan="3" class="hcol">เจ้าพนักงานสาธารณสุข(63503)</th>
+                                                <th rowspan="2">รวม</th>
+                                                <th rowspan="2">รวม ทั้งหมด</th>
+                                                <th rowspan="2">
+                                                    <div align="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                </th>
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="3" class="hcol">พยาบาลวิชาชีพ(61523)</th>
+                                                <th rowspan="2">รวม</th>
+                                                <th colspan="3" class="hcol">นักวิชาการสาธารณสุข(พยาบาล)(62601)</th>
+                                                <th rowspan="2">รวม</th>
+                                                <th rowspan="2">รวม ทั้งหมด</th>
+                                                <th rowspan="2">
+                                                    <div align="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                </th>
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="3" class="hcol">เจ้าพนักงานทันตสาธารณสุข(62802)</th>
+                                                <th rowspan="2">รวม</th>
+                                                <th colspan="3" class="hcol">นักวิชาการสาธารณสุข(ทันต)(62504)</th>
+                                                <th rowspan="2">รวม</th>
+                                                <th rowspan="2">รวม ทั้งหมด</th>
+                                                <th rowspan="2">
+                                                    <div align="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                </th>
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="3" class="hcol">แพทย์แผนไทย(60414)</th>
+                                                <th rowspan="2">รวม</th>
+                                                <th colspan="3" class="hcol">เจ้าพนักงานสาธารณสุข(อายุรเวท)(62600)</th>
+                                                <th rowspan="2">รวม</th>
+                                                <th rowspan="2">รวม ทั้งหมด</th>
+                                                <th rowspan="2">
+                                                    <div align="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                </th>
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="3" class="hcol">รวมทั้งหมดทุกตำแหน่ง(GIS)</th>
+                                                <th rowspan="2">รวม ทั้งหมด</th>
+                                                <th rowspan="2">
+                                                    <div align="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>ขรก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>ขรก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>ขรก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>ขรก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>ขรก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>ขรก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>ขรก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>ขรก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>ขรก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="let item of models;let i=index">
+                                            <tr (click)="clickcoli(i)" [ngClass]="{coltr: i==coli}">
+                                                <td>{{i+1}}</td>
+                                                <td *ngFor="let item2 of models | keys;let j=index" [ngClass]="{ckcol: item[item2]==0}">
+                                                    <span *ngIf="j<4||j==9||j==10||j==21||j==22||j==33||j==34||j==45||j==46||j==57||j==58">{{item[item2]}}</span>
+                                                    <a href="#" data-toggle="modal" data-target="#myModal" (click)="clickshow(j,item.hcode,hc)" *ngIf="j>=4&&j!=9&&j!=10&&j!=21&&j!=22&&j!=33&&j!=34&&j!=45&&j!=46&&j!=57&&j!=58&&j!=20&&j!=32&&j!=44&&j!=56&&j!=63">{{item[item2]}}</a>
+                                                    <span class="badge badge bisix" *ngIf="j==20" [ngClass]="{col1: item[item2]=='0.00'&&j==20,col2: item[item2]<'0.00'&&j==20,col3: item[item2]>'0.00'&&j==20}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==32" [ngClass]="{col1: item[item2]=='0.00'&&j==32,col2: item[item2]<'0.00'&&j==32,col3: item[item2]>'0.00'&&j==32}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==44" [ngClass]="{col1: item[item2]=='0.00'&&j==44,col2: item[item2]<'0.00'&&j==44,col3: item[item2]>'0.00'&&j==44}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==56" [ngClass]="{col1: item[item2]=='0.00'&&j==56,col2: item[item2]<'0.00'&&j==56,col3: item[item2]>'0.00'&&j==56}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==63" [ngClass]="{col1: item[item2]=='0.00'&&j==63,col2: item[item2]<'0.00'&&j==63,col3: item[item2]>'0.00'&&j==63}">{{item[item2]}}</span>
+
+
+                                                    <!--<a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="clickshow(j,item.id_position,hc)" *ngIf="j>=2">{{item[item2]}}</a>-->
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot *ngFor="let item of models;let i=index">
+                                            <tr *ngIf="i<1">
+                                                <th colspan="1">รวม</th>
+                                                <td *ngFor="let item2 of models | keys;let j=index">
+                                                    <span *ngIf="j>=2&&j!=20&&j!=32&&j!=44&&j!=56&&j!=63">{{models|sums:item2|number}}</span>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">รายชื่อบุคลากร</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>รูปภาพ</th>
+                                                                <th>ประเภทบุคลากร</th>
+                                                                <th>ชื่อ - นามสกุล</th>
+                                                                <th>สถานที่ปฎิบัติงานจริง</th>
+                                                                <th>ตำแหน่ง</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody *ngFor="let item of models3;let m=index">
+                                                            <tr (click)="clickcolm(m)" [ngClass]="{coltr: m==colm}">
+                                                                <td>{{m+1}}</td>
+                                                                <td *ngFor="let item2 of models3 | keys;let n=index">
+                                                                    <img *ngIf="n<1" src="http://164.115.22.73/p/pis-v4/images/img/{{item[item2]}}" class="siimg img-thumbnail" />
+                                                                    <span *ngIf="n>=1">{{item[item2]}}</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

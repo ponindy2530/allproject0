@@ -1,0 +1,388 @@
+<div class="row" *ngIf="loading">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 h1 center">
+        <br />
+        <br />
+        <br />
+        <br /> กำลังโหลดข้อมูล...
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div *ngIf="!loading">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+            </li>
+            <li class="active">รายการตรวจรับซ่อม IT</li>
+        </ul>
+        <!-- /.breadcrumb -->
+
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+            </form>
+        </div>
+        <!-- /.nav-search -->
+    </div>
+    <br />
+
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget-box ui-sortable-handle" id="widget-box-4">
+                <div class="widget-header widget-header-large">
+                    <h4 class="widget-title"><i class="fa fa-list-alt"></i> รายการตรวจรับซ่อม IT</h4>
+
+                    <div class="widget-toolbar">
+
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs" id="myTab">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#home">
+                                        <i class="green ace-icon fa fa-home bigger-120"></i> รายการตรวจรับซ่อม
+                                        <span class="badge badge-warning">{{a}}</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#messages">
+														รายการกำลังดำเนินการ
+														<span class="badge badge-info">{{b}}</span>
+													</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#messages1">
+														ส่งซ่อมร้าน
+														<span class="badge badge-danger">{{c}}</span>
+													</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#messages2">
+														ดำเนินการเรียบร้อย(ซ่อมเอง)
+														<span class="badge badge-success">{{g}}</span>
+													</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#messages3">
+														ดำเนินการเรียบร้อย(ร้านซ่อม)
+														<span class="badge badge-success">{{gg}}</span>
+													</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="home" class="tab-pane fade in active">
+                                    <table class="table table-bordered table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>ลำดับ</th>
+                                                <th>รูปภาพ</th>
+                                                <th>วันที่แจ้ง</th>
+                                                <th>ผู้แจ้ง</th>
+                                                <th>รหัสครุภัณฑ์</th>
+                                                <th>ปัญหา/อาการเสีย</th>
+                                                <th>ตรวจรับซ่อม</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="let item of models100;let i=index">
+                                            <tr>
+                                                <td>{{i+1}}</td>
+                                                <td>
+                                                    <img src="http://203.157.182.17/yiiapi/images/matira/{{item.IMGS}}" class="siimg2 img-thumbnail" pTooltip="รูปภาพ:{{item.MID}}">
+                                                </td>
+                                                <td>{{item.DATE_SERV}} <span class="badge badge-warning" *ngIf="item.news=='v1'">New</span></td>
+                                                <td>{{item.fullname}} - {{item.groupnamessj_sm}}</td>
+                                                <td>{{item.MATIRALCODE_FULL}} - {{item.MATIRALNAME}}</td>
+                                                <td> {{item.ACTION}}</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-warning" (click)="getck1(item);">
+												<i class="ace-icon fa fa-wrench  bigger-110 icon-only"></i>
+												<span class="bigger-110 no-text-shadow">รับซ่อม</span>
+											</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div id="messages" class="tab-pane fade">
+
+                                    <table class="table table-bordered table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>ลำดับ</th>
+                                                <th>รูปภาพ</th>
+                                                <th>วันที่แจ้ง</th>
+                                                <th>ผู้แจ้ง</th>
+                                                <th>รหัสครุภัณฑ์</th>
+                                                <th>ปัญหา/อาการเสีย</th>
+                                                <th>ผู้รับเรื่องซ่อม</th>
+                                                <th>ส่งซ่อมร้าน</th>
+                                                <th>ดำเนินการเรียบร้อย</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="let item of models101;let i=index">
+                                            <tr>
+                                                <td>{{i+1}}</td>
+                                                <td>
+                                                    <img src="http://203.157.182.17/yiiapi/images/matira/{{item.IMGS}}" class="siimg2 img-thumbnail" pTooltip="รูปภาพ:{{item.MID}}">
+                                                </td>
+                                                <td>{{item.DATE_SERV|date}}</td>
+                                                <td>{{item.fullname}} - {{item.groupnamessj_sm}}</td>
+                                                <td>{{item.MATIRALCODE_FULL}} - {{item.MATIRALNAME}}</td>
+                                                <td> {{item.ACTION}}</td>
+                                                <td> {{item.fullname_sv}}<br /> {{item.D_UPDATE}}</td>
+                                                <td><button class="btn btn-sm btn-danger" (click)="getck4(item);">
+												<i class="ace-icon fa fa-fire bigger-110"></i>
+												<span class="bigger-110 no-text-shadow">ส่งซ่อม</span>
+											</button></td>
+                                                <td><button class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal" (click)="getck2(item);">
+												<i class="ace-icon fa fa-fire bigger-110"></i>
+												<span class="bigger-110 no-text-shadow">ดำเนินการเรียบร้อย</span>
+											</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div id="messages1" class="tab-pane fade">
+
+                                    <table class="table table-striped table-bordered table-condensed table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="3">ลำดับ</th>
+                                                <th rowspan="3">รูปภาพ</th>
+                                                <th rowspan="3">วันที่แจ้ง</th>
+                                                <th rowspan="3">ผู้แจ้ง</th>
+                                                <th rowspan="3">ครุภัณฑ์</th>
+                                                <th rowspan="3">อาการ/ปัญหา</th>
+                                                <th rowspan="3">สาเหตุ/วิธีการแก้ไข</th>
+                                                <th rowspan="4">ผู้ดำเนินการ</th>
+                                                <th colspan="8" class="center">สถานะการซ่อม</th>
+                                                <th rowspan="3">ค่าใช้จ่าย</th>
+                                                <th rowspan="3">ยกเลิกการพัสดุ</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 50px;" rowspan="2">รอรับซ่อม</th>
+                                                <th style="width: 50px;" rowspan="2">รับซ่อม/กำลังดำเนินการ</th>
+                                                <th style="width: 50px;" colspan="5">ไม่สามารถเองซ่อมได้/รอส่งเคลม</th>
+                                                <th style="width: 50px;" rowspan="2">วันที่เสร็จ</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="width: 50px;">รอส่งเคลม</th>
+                                                <th style="width: 50px;">รับเครื่อง</th>
+                                                <th style="width: 50px;">ส่งเคลมร้าน</th>
+                                                <th style="width: 50px;">ส่งคืน(ซ่อมได้)</th>
+                                                <th style="width: 50px;">ส่งคืน(ซ่อมไม่ได้)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="let item of models103;let i=index">
+                                            <tr>
+                                                <td>{{i+1}}</td>
+                                                <td>
+                                                    <img src="http://203.157.182.17/yiiapi/images/matira/{{item.IMGS}}" class="siimg2 img-thumbnail" pTooltip="รูปภาพ:{{item.MID}}">
+                                                </td>
+                                                <td>{{item.DATE_SERV|date}}</td>
+                                                <td>{{item.fullname}} - {{item.groupnamessj_sm}}</td>
+                                                <td>{{item.MATIRALCODE_FULL}} - {{item.MATIRALNAME}}</td>
+                                                <td> {{item.ACTION}}</td>
+                                                <td> {{item.COMMENT}}</td>
+                                                <td> {{item.fullname_tokam}}<br /> {{item.D_UPDATE}}</td>
+                                                <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.STATUS=='1'"></i></td>
+                                                <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.STATUS=='2'"></i></td>
+                                                <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.stkam=='1'"></i></td>
+                                                <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.stkam=='2'"></i></td>
+                                                <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.stkam=='3'"></i></td>
+                                                <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.stkam=='4'&&item.stok=='1'"></i></td>
+                                                <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.stkam=='4'&&item.stok=='2'"></i></td>
+                                                <td>{{item.D_UPDATE}}</td>
+                                                <td> {{item.EXPENS|number}}</td>
+                                                <td>
+                                                    <div class="btn-group">
+
+                                                        <button class="btn btn-xs btn-danger" (click)="delete(item,item.stkam);">
+									                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+								                </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="messages2" class="tab-pane fade">
+
+                                    <table class="table table-bordered table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>ลำดับ</th>
+                                                <th>วันที่แจ้ง</th>
+                                                <th>รูปภาพ</th>
+                                                <th>ผู้แจ้ง</th>
+                                                <th>รหัสครุภัณฑ์</th>
+                                                <th>ปัญหา/อาการเสีย</th>
+                                                <th>สาเหตุ/วิธีการแก้ไข</th>
+                                                <th>ผู้ดำเนินการซ่อมซ่อม</th>
+                                                <th>วันที่ซ่อมเรียบร้อย</th>
+                                                <th>ค่าใช้จ่าย(บาท)</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="let item of models102;let i=index">
+                                            <tr>
+                                                <td>{{i+1}}</td>
+                                                <td>
+                                                    <img src="http://203.157.182.17/yiiapi/images/matira/{{item.IMGS}}" class="siimg2 img-thumbnail" pTooltip="รูปภาพ:{{item.MID}}">
+                                                </td>
+                                                <td>{{item.DATE_SERV|date}}</td>
+                                                <td>{{item.fullname}} - {{item.groupnamessj_sm}}</td>
+                                                <td>{{item.MATIRALCODE_FULL}} - {{item.MATIRALNAME}}</td>
+                                                <td> {{item.ACTION}}</td>
+                                                <td> {{item.COMMENT}}</td>
+                                                <td> {{item.fullname_succ}}<br /> {{item.D_UPDATE}}
+                                                </td>
+                                                <td>{{item.D_SUCCESS}}</td>
+                                                <td>{{item.EXPENS|number}}</td>
+                                            </tr>
+                                        </tbody>
+                                        <tr>
+                                            <td colspan="9">รวมค่าใช้จ่าย(บาท)</td>
+                                            <td> {{models102|sums:'EXPENS'|number}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div id="messages3" class="tab-pane fade">
+
+
+                                    <table class="table table-bordered table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>ลำดับ</th>
+                                                <th>วันที่แจ้ง</th>
+                                                <th>รูปภาพ</th>
+                                                <th>ผู้แจ้ง</th>
+                                                <th>รหัสครุภัณฑ์</th>
+                                                <th>ปัญหา/อาการเสีย</th>
+                                                <th>สาเหตุ/วิธีการแก้ไข</th>
+                                                <th>ผู้ดำเนินรับคืนเครื่อง</th>
+                                                <th>ใบแจ้งซ่อม</th>
+                                                <th>ใบแจ้งหนี้</th>
+                                                <th>ค่าใช้จ่าย(บาท)</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="let item of models1053;let i=index">
+                                            <tr>
+                                                <td>{{i+1}}</td>
+                                                <td>
+                                                    <img src="http://203.157.182.17/yiiapi/images/matira/{{item.IMGS}}" class="siimg2 img-thumbnail" pTooltip="รูปภาพ:{{item.MID}}">
+                                                </td>
+                                                <td>{{item.DATE_SERV|date}}</td>
+                                                <td>{{item.fullname}} - {{item.groupnamessj_sm}}</td>
+                                                <td>{{item.MATIRALCODE_FULL}} - {{item.MATIRALNAME}}</td>
+                                                <td> {{item.ACTION}}</td>
+                                                <td> {{item.COMMENT}}</td>
+                                                <td> {{item.fullname_tokam5}}<br /> {{item.D_UPDATE}}
+                                                </td>
+                                                <td>
+                                                    <a href="http://203.157.182.17/yiiapi/images/sheet/{{item.SHEET}}" target="_blank" *ngIf="item.SHEET!=''">
+                                                        <i class="fa fa-file-pdf-o fa-2x text-warning"></i>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="http://203.157.182.17/yiiapi/images/invoice/{{item.INVOICE}}" target="_blank" *ngIf="item.INVOICE!=''">
+                                                        <i class="fa fa-file-pdf-o fa-2x text-success"></i>
+                                                    </a>
+                                                </td>
+                                                <td>{{item.EXPENS|number}}</td>
+                                            </tr>
+                                        </tbody>
+                                        <tr>
+                                            <td colspan="10">รวมค่าใช้จ่าย(บาท)</td>
+                                            <td> {{models1053|sums:'EXPENS'|number}}</td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.col -->
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" id="fght33y789" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title red" id="myModalLabel"> <i class="fa fa-desktop"></i> สาเหตุ/วิธีการแก้ไข</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form (ngSubmit)="save();" #matiral="ngForm">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="control-label input-label" for="address"><b>รหัส : {{model.OID}}</b></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="control-label input-label" for="address"><b>วัน/เดือน/ปีที่แจ้ง : {{model.DATE_SERV|date}}</b></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="control-label input-label" for="address"><b>ชื่อผู้ที่แจ้ง : {{model.fullname}} - {{model.groupnamessj_sm}}</b></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="control-label input-label" for="address"><b>ชื่อครุภัณฑ์ : {{model.MATIRALCODE_FULL}} - {{model.MATIRALNAME}}</b></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="control-label input-label txred" for="EXPENS"><b>ค่าใช้จ่าย(บาท) <span>*</span></b></label>
+                                        <input class="form-control" [(ngModel)]="model.EXPENS" id="EXPENS" name="EXPENS" type="text" pTooltip="ค่าใช้จ่าย(บาท)" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="control-label input-label txred" for="COMMENT"><b>สาเหตุ/วิธีการแก้ไข <span>*</span></b></label>
+                                        <textarea class="form-control" [(ngModel)]="model.COMMENT" id="COMMENT" name="COMMENT" rows="4" pTooltip="สาเหตุ/วิธีการแก้ไข" required></textarea>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"><button class="btn btn-primary btn-block">บันทึกข้อมูล</button></div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

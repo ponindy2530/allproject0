@@ -1,0 +1,103 @@
+<div class="row">
+
+    <!-- ngView: -->
+    <div ng-view="" class="ng-scope">
+        <div class="space-24 ng-scope"></div>
+        <div class="space-24 ng-scope"></div>
+        <div class="col-sm-10 col-sm-offset-1 ng-scope">
+            <div class="center">
+                <h1>
+                    <i class="ace-icon fa fa-user red"></i>
+                    <span class="red">บัญชีเดียว </span>
+                    <span id="id-text2">กับทุกบริการ</span>
+                </h1>
+                <h4 class="blue" id="id-company-text">© สำนักงานสาธารณสุขจังหวัดชัยภูมิ</h4>
+                <h3 class="ng-binding">ลงชื่อเข้าใช้เพื่อไปยัง {{title}}</h3>
+            </div>
+            <div class="login-container">
+                <div class="space-6"></div>
+                <div class="position-relative">
+                    <div id="login-box" class="login-box visible widget-box no-border">
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div class="space-6"></div>
+                                <form name="form" ng-submit="form.$valid &amp;&amp; login()" novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
+                                    <fieldset>
+                                        <label class="block clearfix">
+								<div class="form-group" ng-class="{ 'has-error': form.$submitted &amp;&amp; form.username.$invalid }">
+									<span class="block input-icon input-icon-right">
+										<input type="text" id="username" name="username" ng-model="lg.username" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" placeholder="เลขประจำตัวประชาชน" format-cid="" required="">
+										<i class="ace-icon fa fa-user"></i>
+									</span>
+									<span ng-messages="form.$submitted &amp;&amp; form.username.$error" class="help-block ng-inactive">
+										<!-- ngMessage: required -->
+									</span>
+								</div>
+								</label>
+
+                                        <label class="block clearfix">
+								<div class="form-group" ng-class="{ 'has-error': form.$submitted &amp;&amp; form.password.$invalid }">
+									<span class="block input-icon input-icon-right">
+										<input type="password" id="password" name="password" ng-model="lg.password" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" placeholder="รหัสผ่าน" required="">
+										<i class="ace-icon fa fa-lock"></i>
+									</span>
+									<span ng-messages="form.$submitted &amp;&amp; form.password.$error" class="help-block ng-inactive">
+										<!-- ngMessage: required -->
+									</span>
+								</div>
+								</label>
+
+                                        <div class="space"></div>
+                                        <!-- ngIf: error -->
+
+                                        <div class="clearfix">
+                                            <button type="submit" class="width-100 pull-right btn btn-sm btn-primary">
+										<i class="ace-icon fa fa-key"></i>
+										<span class="bigger-110">เข้าสู่ระบบ</span>
+									</button>
+                                        </div>
+
+                                        <div class="space-4"></div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                            <!-- /.widget-main -->
+
+                            <div class="toolbar">
+                                <div>
+                                    <a href="http://203.157.182.15/accounts/forgot" class="forgot-password-link orange">
+                                        <i class="ace-icon fa fa-arrow-left"></i> ลืมรหัสผ่าน
+                                    </a>
+                                </div>
+
+                                <div>
+                                    <a href="http://203.157.182.15/accounts/register" class="user-signup-link green">
+								สร้างบัญชีใหม่
+								<i class="ace-icon fa fa-arrow-right"></i>
+							</a>
+                                </div>
+                            </div>
+
+                            <div class="space-24"></div>
+                            <div class="space-24"></div>
+                            <div class="space-24"></div>
+
+                            <div class="social-or-login center">
+                                <span class="bigger-110">หนึ่งบัญชีของคุณ สำหรับทุกบริการของเรา </span>
+                            </div>
+
+                            <div class="space-6"></div>
+
+                        </div>
+                        <!-- /.widget-body -->
+                    </div>
+                    <!-- /#login-box -->
+                    <!-- /#repass-box -->
+                </div>
+                <!-- /.position-relative -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+
+</div>

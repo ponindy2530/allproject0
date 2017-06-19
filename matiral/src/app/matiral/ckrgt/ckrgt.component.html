@@ -1,0 +1,71 @@
+<div class="row" *ngIf="loading">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 h1 center">
+        <br />
+        <br />
+        <br />
+        <br /> กำลังโหลดข้อมูล...
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div *ngIf="!loading">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+            </li>
+            <li class="active">ฟอร์มยืนยันข้อมูลกลุ่มงาน/ฝ่าย</li>
+        </ul>
+        <!-- /.breadcrumb -->
+
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+            </form>
+        </div>
+        <!-- /.nav-search -->
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h3 class="header smaller lighter green"><i class="ace-icon fa fa-check-square-o"></i> ยืนยันข้อมูลกลุ่มงาน/ฝ่าย</h3>
+            <p></p>
+            <form (ngSubmit)="save();" #matiral="ngForm">
+                <table class="table table-hover">
+                    <tr>
+                        <td>ชื่อ - นามสกุล</td>
+                        <td>
+                            <select class="form-control selwid" [(ngModel)]="pid" id="pis" name="pis" required disabled>
+ <option *ngFor="let item of models1;let i=index"  [value]="item.id">{{item.fullname}}</option>  
+                                    </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>กลุ่มงาน/ฝ่าย</td>
+                        <td>
+                            <select class="form-control selwid" [(ngModel)]="model.c_groupssj" id="c_groupssj" name="c_groupssj" required>
+ <option *ngFor="let item of models;let i=index"  [value]="item.groupcodessj">{{item.groupcodessj}} - {{item.groupnamessj}}</option>  
+                                    </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4"><button class="btn btn-primary btn-block">ยืนยันข้อมูล</button></div>
+                                <div class="col-md-4"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>

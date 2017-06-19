@@ -1,0 +1,289 @@
+<p-confirmDialog width="425"></p-confirmDialog>
+<p-growl [value]="msgs"></p-growl>
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+        </li>
+        <li class="active">ฟอร์มป้อน/แก้ไขข้อมูลครุภัณฑ์</li>
+    </ul>
+    <!-- /.breadcrumb -->
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+
+<br />
+
+<form (ngSubmit)="save();" #matiral="ngForm">
+    <div class="row">
+        <div class="col-md-6">
+            <fieldset class="scheduler-border" style="background-color: #FFEB3B;">
+                <legend class="scheduler-border"></legend>
+                <h3 class="header smaller lighter red">
+                    <i class="fa fa-search"></i> ค้นหา
+                </h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label input-label" for="searchcode"><b>ค้นหาด้วยรหัสครุภัณฑ์</b></label>
+                        <input type="text" class="form-control" [(ngModel)]="searchcode" id="searchcode" name="searchcode" (keyup)="getsearch($event,1)" placeholder="ค้นหา" autofocus>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label input-label" for="searchcode1"><b>ค้นหาหมวดครุภัณฑ์</b></label>
+                        <select class="form-control" [(ngModel)]="searchcode1" id="searchcode1" name="searchcode1" (change)="getsearch($event,2)">
+                        <option *ngFor="let item of models1;let i=index"  [value]="item.GROUPCODE"> {{item.GROUPNAME}}</option>  
+                    </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label input-label" for="searchcode2"><b>ค้นหาชนิดครุภัณฑ์</b></label>
+                        <select class="form-control" [(ngModel)]="searchcode2" id="searchcode2" name="searchcode2" (change)="getsearch($event,1)">
+                         <option *ngFor="let item of models2;let i=index"  [value]="item.TYPECODE2"> {{item.TYPENAME}}</option>  
+                    </select>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="scheduler-border" style="background-color: #B2EBF2;">
+                <legend class="scheduler-border"></legend>
+                <h3 class="header smaller lighter red">
+                    <i class="fa fa-desktop"></i> ครุภัณฑ์
+                </h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label input-label"><b>รหัสครุภัณฑ์</b></label>
+                        <input type="text" class="form-control" [value]="model.MATIRATYPECODE" disabled>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label input-label txred" for="MATIRATYPECODE"><b>ชื่อครุภัณฑ์</b> <span>*</span></label>
+                        <select class="form-control" [(ngModel)]="model.MATIRATYPECODE" id="MATIRATYPECODE" name="MATIRATYPECODE" (change)="getmax($event)" required>
+                        <option *ngFor="let item of models3;let i=index"  [value]="item.MATIRATYPECODE"> {{item.ATTRIBUTE}}</option>  
+                    </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="control-label input-label txred" for="MATIRALCODE"><b>ลำดับครุภัณฑ์</b> <span>*</span></label>
+                        <input type="text" class="form-control" [(ngModel)]="model.MATIRALCODE" id="MATIRALCODE" name="MATIRALCODE" (keyup)="getckmax($event,model.MATIRATYPECODE)" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label input-label" for="MATIRALCODE"><b>รุ่น / ยี่ห้อ</b></label>
+                        <input type="text" class="form-control" [(ngModel)]="model.BRAND" id="BRAND" name="BRAND">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label input-label" for="MATIRALCODE"><b>ขนาด</b></label>
+                        <input type="text" class="form-control" [(ngModel)]="model.SIZE" id="SIZE" name="SIZE">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label input-label" for="MATIRALCODE"><b>หน่วยนับ</b></label>
+                        <select class="form-control" [(ngModel)]="model.UNITCODE" id="UNITCODE" name="UNITCODE">
+                                        <option *ngFor="let item of models15;let i=index"  [value]="item.id_unit"> {{item.id_unit}} - {{item.name_unit}}</option>  
+                                    </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label input-label txred" for="DATE_SERV"><b>วัน/เดือน/ปีที่ลงทะเบียน</b> <span>*</span></label>
+                        <input class="form-control" [(ngModel)]="model.DATE_SERV" id="DATE_SERV" name="DATE_SERV" type="date" required />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label input-label" for="END_DATE"><b>การสิ้นสุดรับประกัน(ปี)</b></label>
+                        <input class="form-control" [(ngModel)]="model.END_DATE" id="END_DATE" name="END_DATE" type="text" />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label input-label" for="SERIAL"><b>หมายเลขเครื่อง</b></label>
+                        <input type="text" class="form-control" [(ngModel)]="model.SERIAL" id="SERIAL" name="SERIAL">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="control-label input-label" for="MATIRALCODE"><b>รายละเอียด</b></label>
+                        <textarea class="form-control" [(ngModel)]="model.DETAIL" id="DETAIL" name="DETAIL" rows="11"></textarea>
+
+                    </div>
+                </div>
+                <p></p>
+            </fieldset>
+        </div>
+        <div class="col-md-6">
+            <fieldset class="scheduler-border" style="background-color: #B2EBF2;">
+                <legend class="scheduler-border"></legend>
+                <h3 class="header smaller lighter red">
+                    <i class="fa fa-money"></i> งบประมาณ
+                </h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label input-label" for="MATIRALCODE"><b>วิธีที่การจัดหา</b></label>
+                        <select class="form-control" [(ngModel)]="model.SUPPLY" id="SUPPLY" name="SUPPLY">
+                        <option *ngFor="let item of models7;let i=index"  [value]="item.id_supply">{{item.id_supply}} - {{item.name_supply}}</option>  
+                    </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label input-label" for="MATIRALCODE"><b>ประเภทเงินที่ซื้อ</b></label>
+                        <select class="form-control" [(ngModel)]="model.MONEYTYPE" id="MONEYTYPE" name="MONEYTYPE">
+                        <option *ngFor="let item of models6;let i=index"  [value]="item.id_money">{{item.id_money}} - {{item.name_money}}</option>  
+                    </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label input-label txred" for="MATIRALCODE"><b>ราคาต่อหน่วย(บาท)</b> <span>*</span></label>
+                        <input type="text" class="form-control" [(ngModel)]="model.PRICE" id="PRICE" name="PRICE" required>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="scheduler-border" style="background-color: #B2EBF2;">
+                <legend class="scheduler-border"></legend>
+                <h3 class="header smaller lighter red">
+                    <i class="fa fa-user"></i> ผู้รับผิดชอบ
+                </h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="control-label input-label txred" for="MATIRALCODE"><b>ฝ่ายที่รับผิดชอบ</b> <span>*</span></label>
+                        <select class="form-control selwid" [(ngModel)]="model.PARTYCODE" id="PARTYCODE" name="PARTYCODE" (change)="selectfilter3($event)" required>
+ <option *ngFor="let item of models5;let i=index"  [value]="item.groupcodessj">{{item.groupcodessj}} - {{item.groupnamessj}}</option>  
+                                    </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label input-label txred" for="MATIRALCODE"><b>ผู้รับผิดชอบ</b> <span>*</span></label>
+                        <select class="form-control selwid" [(ngModel)]="model.CID" id="CID" name="CID" required>
+                             <option *ngFor="let item of models9|scmatiral3:numtest3;let i=index"  [value]="item.cid"> {{item.fullname}}</option>
+                    </select>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="scheduler-border" style="background-color: #B2EBF2;">
+                <legend class="scheduler-border"></legend>
+                <h3 class="header smaller lighter red">
+                    <i class="fa fa-calendar-o"></i> สถานะการใช้งาน
+                </h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="control-label input-label txred" for="MATIRALCODE"><b>สถานะการจำหน่าย</b> <span>*</span></label>
+                        <select class="form-control selwid" [(ngModel)]="model.DISTRIBUTE" id="DISTRIBUTE" name="DISTRIBUTE" required>
+ <option *ngFor="let item of models8;let i=index"  [value]="item.id_distribute"> {{item.id_distribute}} - {{item.name_distribute}}</option>   
+                                    </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label input-label" for="D_DISTRIBUTE"><b>วันที่จำหน่าย</b></label>
+                        <input class="form-control selwid" [(ngModel)]="model.D_DISTRIBUTE" id="D_DISTRIBUTE" name="D_DISTRIBUTE" pTooltip="วันที่จำหน่าย" type="date" />
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="scheduler-border" style="background-color: #B2EBF2;">
+                <legend class="scheduler-border"></legend>
+                <h3 class="header smaller lighter red">
+                    <i class="fa fa-institution"></i> แหล่งที่มา/ผู้ขาย/ผู้บริจาค
+                </h3>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="control-label input-label" for="PARTNERS"><b>ชื่อบริษัทที่/จำหน่าย</b></label>
+                        <select class="form-control selwid" [(ngModel)]="model.PARTNERS" id="PARTNERS" name="PARTNERS">
+                      <option *ngFor="let item of models100;let i=index"  [value]="item.id">{{item.id_company}} - {{item.name_company_th}}</option>   
+                    </select>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"><button class="btn btn-primary btn-block">บันทึกข้อมูล</button></div>
+        <div class="col-md-4"></div>
+    </div>
+</form>
+
+<br />
+<h3 class="header smaller lighter red">
+    <i class="fa fa-desktop"></i> รายการบันทึก (ประจำวันที่:{{datenow2|date}})
+</h3>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive" style="overflow-y: auto; height: 300px;">
+            <table class="table table-bordered table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>ลำดับ</th>
+                        <th>วันที่บันทึก</th>
+                        <th>รูปภาพ</th>
+                        <th>เอกสาร</th>
+                        <th>รหัสครุภัณฑ์</th>
+                        <th>ชื่อครุณฑ์</th>
+                        <th>ราคาต่อหน่วย(บาท)</th>
+                        <th>สถานะการใช้งาน</th>
+                        <th>ผู้บันทึก</th>
+                        <th>ปรับปรุง</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of models13;let i=index">
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td><i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i> {{item.D_UPDATE}}</td>
+                        <td><img src="http://203.157.182.17/yiiapi/images/matira/{{item.IMGS}}" class="siimg img-thumbnail"></td>
+                        <td>
+                            <a href="http://203.157.182.17/yiiapi/images/doc/{{item.DOC}}" target="_blank" *ngIf="item.DOC!=''">
+                                <i class="fa fa-file-pdf-o fa-2x text-warning"></i>
+                            </a>
+                        </td>
+                        <td>{{item.MATIRALCODE_FULL}} <i class="ace-icon glyphicon glyphicon-remove bigger-120 red" *ngIf="item.a >=2"></i></td>
+                        <td>{{item.MATIRALNAME}}</td>
+                        <td>{{item.PRICE|number}}</td>
+                        <td>
+                            <span class="label label-success arrowed" *ngIf="item.DISTRIBUTE==9">{{item.name_distribute}}</span>
+                            <span class="label label-warning arrowed" *ngIf="item.DISTRIBUTE!=9">{{item.name_distribute}}</span>
+                        </td>
+                        <td><i class="fa fa-user"></i> {{item.fullname}}</td>
+                        <td>
+                            <div class="hidden-sm hidden-xs btn-group">
+                                <button class="btn btn-xs btn-purple" (click)="editimg(item,1);" data-toggle="modal" data-target="#myModal">
+									<i class="ace-icon fa fa-cloud-upload bigger-120"></i>
+								</button>
+                                <button class="btn btn-xs btn-warning" (click)="editimg(item,2);" data-toggle="modal" data-target="#myModal">
+									<i class="ace-icon fa fa-file-pdf-o bigger-120"></i>
+								</button>
+                                <button class="btn btn-xs btn-info" (click)="getedit(item);">
+									<i class="ace-icon fa fa-pencil bigger-120"></i>
+								</button>
+                                <button class="btn btn-xs btn-danger" (click)="delete(item,i);">
+									<i class="ace-icon fa fa-trash-o bigger-120"></i>
+								</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="fghty789" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">{{hnameimg}}</h4>
+            </div>
+            <div class="modal-body">
+                <p-fileUpload name="nfile" url="{{upurl}}" (onUpload)="onUpload($event,oidimg2)" multiple="multiple" accept="{{tyimg}}" maxFileSize="2000000">
+                    <template pTemplate="content">
+        <ul *ngIf="uploadedFiles.length">
+            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} {{file.type}}]bytes</li>
+        </ul>
+        <label class="txred"><h5>หมายเหตุ:<br /><br />1.การอัพโหลดรูปภาพควรตั้งชื่อให้ตรงกับ<b><u>รหัสครุภัณฑ์+ลำดับที่ครุภัณฑ์:(ตัวอย่าง:1234-123-123-1.jpg)</u></b> <br /><br />2.ไฟล์ควรเป็น<b><u>.jpg</u></b> <br /><br />3.ไฟล์ไม่เกิน 2 MB <br /><br />4.อัพได้แค่ 1 รูปเท่านั้น</h5></label>
+    </template>
+                </p-fileUpload>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

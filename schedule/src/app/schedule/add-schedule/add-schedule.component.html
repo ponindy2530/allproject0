@@ -1,0 +1,195 @@
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+        </li>
+        <li class="active">เพิ่มผังรายการประชุม</li>
+    </ul>
+    <!-- /.breadcrumb -->
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="widget-box ui-sortable-handle" id="widget-box-4">
+            <div class="widget-header widget-header-large">
+                <h4 class="widget-title"><i class="fa fa-reorder" aria-hidden="true"></i> ผังรายการประชุม</h4>
+
+                <div class="widget-toolbar">
+
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main">
+                    <p-messages [value]="msgs"></p-messages>
+                    <p-confirmDialog width="425"></p-confirmDialog>
+                    <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal" (click)="add()"><i class="fa fa-plus"></i> เพิ่มผังรายการประชุม</button>
+                    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input #gb type="text" pInputText size="50" placeholder="ค้นหา">
+                        <button type="button" class="btn btn-sm btn-warning pull-right" pButton icon="fa-file-o" iconPos="left" label="export" (click)="dt.exportCSV()" style="float:left"></button>
+                    </div>
+                    <p-dataTable [value]="models" [rows]="10" [rowsPerPageOptions]="[10,50,100,200,300]" [paginator]="true" [globalFilter]="gb" #dt>
+                        <p-column header="ลำดับ" [style]="{'width':'60px','text-align':'center'}">
+                            <template let-col let-rowData="rowData" let-rowIndex="rowIndex" pTemplate="body">
+                    {{rowIndex+1}}   
+              </template>
+                        </p-column>
+                        <p-column field="START_DATE" styleClass="col-button" header="วันที่/เวลา" [style]="{'width':'150px','text-align':'center'}">
+                            <template let-car="rowData" let-rowIndex="rowIndex" pTemplate="body">
+{{car.START_DATE}}<br />{{car.START_TIME}} น.
+        </template>
+                        </p-column>
+                        <p-column field="URLNAME" header="เรื่องประชุมชี้แจ้ง" [sortable]="true">
+                            <template let-car="rowData" let-rowIndex="rowIndex" pTemplate="body">
+{{car.URLNAME}} <span class="badge badge-warning" tooltipPosition="top"  pTooltip="วันนี้" *ngIf="car.NEWS=='N1'">วันนี้</span> <i class="fa fa-folder-open-o text-success" tooltipPosition="top"  pTooltip="ทั่วไป" *ngIf="car.STATUSROOM==2" ></i> <i class="fa fa-lock text-danger" tooltipPosition="top"  pTooltip="จำกัดสิทธิ" *ngIf="car.STATUSROOM==1"></i>
+        </template>
+                        </p-column>
+                        <p-column field="groupnamessj" header="ฝ่ายผู้จัดประชุม" [sortable]="true" [style]="{'width':'150px','text-align':'center'}"></p-column>
+                        <p-column styleClass="col-button" header="URL" [style]="{'width':'150px','text-align':'center'}">
+                            <template let-car="rowData" let-rowIndex="rowIndex" pTemplate="body">
+<a href="{{car.URL}}" target="_blank" *ngIf="car.STATUS==1&&car.STATUSROOM==2" tooltipPosition="top"  pTooltip="Youtube"> <i class="ace-icon fa fa-youtube-play fa-2x text-danger"></i> </a>
+<a href="{{car.URL}}" target="_blank" *ngIf="car.STATUS==2&&car.STATUSROOM==2" tooltipPosition="top"  pTooltip="Hangouts"> <i class="ace-icon fa fa-video-camera fa-2x text-success"></i> </a>
+
+<a href="javascript:void(0);"  *ngIf="car.STATUS==1&&car.STATUSROOM==1" tooltipPosition="top"  pTooltip="Youtube"> <i class="ace-icon fa fa-youtube-play fa-2x text-danger"></i> </a>
+<a href="javascript:void(0);"  *ngIf="car.STATUS==2&&car.STATUSROOM==1" tooltipPosition="top"  pTooltip="Hangouts"> <i class="ace-icon fa fa-video-camera fa-2x text-success"></i> </a>
+        </template>
+                        </p-column>
+                        <p-column styleClass="col-button" header="ประเภทใช้บ่อย" [style]="{'width':'150px','text-align':'center'}">
+                            <template let-car="rowData" let-rowIndex="rowIndex" pTemplate="body">
+                    <a href="javascript:void(0);" *ngIf="car.HL==2" (click)="geteditdel(1,car.ID,'HL')" tooltipPosition="top" pTooltip="ใช้บ่อย">
+				<i class="ace-icon fa fa-arrow-up fa-2x"></i>
+                    </a>
+                    <a href="javascript:void(0);" *ngIf="car.HL==1" (click)="geteditdel(2,car.ID,'HL')" tooltipPosition="top" pTooltip="ใช้ไม่บ่อย">
+                <i class="ace-icon fa fa-arrow-down fa-2x text-danger"></i>
+                    </a>
+        </template>
+                        </p-column>
+                        <p-column styleClass="col-button" header="ตัวเลือก" [style]="{'width':'120px','text-align':'center'}">
+                            <template let-car="rowData" let-rowIndex="rowIndex" pTemplate="body">
+                    <a href="javascript:void(0);" *ngIf="car.DEL==1" (click)="geteditdel(2,car.ID,'DEL')" tooltipPosition="top" pTooltip="ปิด">
+				<i class="ace-icon fa fa-eye fa-2x"></i>
+                    </a>
+                    <a href="javascript:void(0);" *ngIf="car.DEL==2" (click)="geteditdel(1,car.ID,'DEL')" tooltipPosition="top" pTooltip="เปิด">
+                <i class="ace-icon fa fa-eye-slash fa-2x text-warning"></i>
+                    </a>|
+                                  <a href="javascript:void(0);" tooltipPosition="top"  data-target="#myModal" (click)="delete(car)" pTooltip="ลบข้อมูล">
+                <i class="ace-icon fa fa-trash-o fa-2x text-danger"></i> |
+                    </a>
+                    <a href="" tooltipPosition="top" data-toggle="modal" data-target="#myModal" (click)="edit(car)" pTooltip="แก้ไขข้อมูล">
+                <i class="ace-icon fa fa-pencil-square-o fa-2x text-success"></i>
+                    </a>
+        </template>
+                        </p-column>
+                    </p-dataTable>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus"></i> เพิ่มผังรายการประชุม</h4>
+            </div>
+            <div class="modal-body">
+                <p-messages [value]="msgs"></p-messages>
+                <p-messages [value]="msgs2"></p-messages>
+                <form class="form-horizontal" role="form" (ngSubmit)="save();">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right">ชื่อเรื่องรายการประชุม ***</label>
+
+                        <div class="col-sm-9">
+                            <span class="input-icon">
+                              	<input type="text" [(ngModel)]="model.URLNAME" id="URLNAME" name="URLNAME" pTooltip="ชื่อเรื่องรายการประชุม"  pInputText size="50" required>
+											</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right">URL ***</label>
+
+                        <div class="col-sm-9">
+                            <span class="input-icon">
+	<input type="text" [(ngModel)]="model.URL" id="URL" name="URL" pTooltip="URL" disabled="{{!model.URLNAME}}" pInputText size="50" required>
+											</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right">วันที่ ***</label>
+
+                        <div class="col-sm-9">
+                            <span class="input-icon">
+                                    <input class="form-control" [(ngModel)]="model.START_DATE" id="START_DATE" name="START_DATE" disabled="{{!model.URL}}" pInputText size="50" type="date" required />
+											</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right">เวลา ***</label>
+
+                        <div class="col-sm-9">
+                            <span class="input-icon">
+												<input type="text" [(ngModel)]="model.START_TIME" id="START_TIME" name="START_TIME" pTooltip="เวลา" disabled="{{!model.URL}}"  required> น.
+											</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right">ประเภท URL ***</label>
+
+                        <div class="col-sm-9">
+                            <span class="input-icon">
+                              		<select class="form-control" [(ngModel)]="model.STATUS" id="STATUS" name="STATUS" pTooltip="ประเภท URL"  disabled="{{!model.START_TIME}}" required>
+                                                    <option *ngFor="let item of models2;let i=index;" value="{{item.id}}">{{item.id}} - {{item.nst}}</option>
+                                                </select>
+											</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right">ประเภทห้อง ***</label>
+
+                        <div class="col-sm-9">
+                            <span class="input-icon">
+                              		<select class="form-control" [(ngModel)]="model.STATUSROOM" id="STATUSROOM" name="STATUSROOM" pTooltip="ประเภทห้อง"  disabled="{{!model.STATUS}}" required>
+                                                    <option *ngFor="let item of models3;let i=index;" value="{{item.id}}">{{item.id}} - {{item.nstroom}}</option>
+                                                </select>
+											</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right">กลุ่มงาน / ฝ่ายผู้จัด ***</label>
+
+                        <div class="col-sm-9">
+                            <span class="input-icon">
+                              		<select class="form-control" [(ngModel)]="model.GROUPSSJ" id="GROUPSSJ" name="GROUPSSJ" pTooltip="กลุ่มงาน / ฝ่ายผู้จัด"  disabled="{{!model.STATUSROOM}}" required>
+                                                    <option *ngFor="let item of models4;let i=index;" value="{{item.groupcodessj}}">{{item.groupcodessj}} - {{item.groupnamessj}}</option>
+                                                </select>
+											</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block"><i class="fa fa-floppy-o"></i> บันทึกข้อมูล</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>

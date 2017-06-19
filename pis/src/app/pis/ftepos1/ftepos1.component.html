@@ -1,0 +1,455 @@
+<div class="row" *ngIf="loading">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 h1 center">
+        <br />
+        <br />
+        <br />
+        <br /> กำลังโหลดข้อมูล...
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div *ngIf="!loading">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+            </li>
+            <li class="active">FTE(รพ.) สายวิชาชีพ รายตำแหน่ง</li>
+        </ul>
+        <!-- /.breadcrumb -->
+
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+            </form>
+        </div>
+        <!-- /.nav-search -->
+    </div>
+    <br />
+    <div class="widget-box ui-sortable-handle" id="widget-box-4">
+        <div class="widget-header widget-header-large">
+            <h4 class="widget-title">FTE(รพ.) สายวิชาชีพ รายตำแหน่ง</h4>
+
+            <div class="widget-toolbar">
+                <button class="btn btn-sm  btn-primary btn-white" (click)="getres();">
+															<i class="ace-icon fa fa-link"></i>
+														FTE(รพ.) สายวิชาชีพ รายตำแหน่ง
+														</button>
+                <button class="btn btn-sm  btn-primary btn-white" routerLink="/FteHot" routerLinkActive="active">
+															<i class="ace-icon fa fa-link"></i>
+														FTE(รพ.) สายวิชาชีพ รายสถานบริการ
+														</button>
+                <div class="btn-group">
+                    <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle" aria-expanded="false">
+                            <i class="ace-icon fa fa-th-list"></i>
+													เลือกตำแหน่ง
+													<span class="ace-icon fa fa-caret-down icon-on-right"></span>
+												</button>
+
+                    <ul class="dropdown-menu dropdown-default">
+                        <li *ngFor="let item of models2;let k=index" [ngClass]="{coltr: k==colk}">
+                            <a href="javascript:void(0);" (click)="getmpos(item)">{{item.id}} - {{item.headname_mini}}</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget-body">
+            <div class="widget-main">
+                <div class="table-responsive" *ngIf="idpos2==1">
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">#</th>
+                                <th rowspan="2">รหัส</th>
+                                <th rowspan="2" class="trmw200">ชื่อสถานบริการ</th>
+                                <th rowspan="2">ระดับ</th>
+                                <th rowspan="2">Active bed 2557</th>
+                                <th rowspan="2">ประชากร(รพ.)</th>
+
+                                <th rowspan="2">ขั้นสูง 100%</th>
+                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                <th colspan="8" class="center hcol">{{haername}}</th>
+                                <th rowspan="2" class="trw80">
+                                    <A NAME="history1">
+                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                    </A>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>ขรก.</th>
+                                <th>พงก.</th>
+                                <th>พกส.</th>
+                                <th>ลจ. ประจำ</th>
+                                <th>ลจ. ชั่วคราว</th>
+                                <th>รวม</th>
+                                <th>ลจ. ชั่วคราว(รว)</th>
+                                <th>ลาศึกษา</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of models;let i=index">
+                            <tr (click)="clickcoli(i)" [ngClass]="{coltr: i==coli}">
+                                <td>{{i+1}}</td>
+                                <td *ngFor="let item2 of models | keys;let j=index" [ngClass]="{ckcol: item[item2]==0}">
+                                    <!--<span>{{item[item2]}}>>>{{j}}</span>-->
+                                    <span *ngIf="j<15" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                    <!--<a href="#" data-toggle="modal" data-target="#myModal" (click)="clickshow(j,item.hcode,idpos2,keypos)" *ngIf="j>=7&&j!=15" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</a>-->
+                                    <span class="badge badge bisix text-center" *ngIf="j==15" [ngClass]="{col1: item[item2]=='0.00'&&j==15,col2: item[item2]<'0.00'&&j==15,col3: item[item2]>'0.00'&&j==15}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot *ngFor="let item of models;let i=index">
+                            <tr *ngIf="i<1">
+                                <th colspan="1">รวม</th>
+                                <td *ngFor="let item2 of models | keys;let j=index">
+                                    <span *ngIf="j>2&&j!=15">{{models|sums:item2|number}}</span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+
+
+
+
+
+
+
+
+                <div class="table-responsive" *ngIf="idpos2==2">
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">#</th>
+                                <th rowspan="2">รหัส</th>
+                                <th rowspan="2" class="trmw200">ชื่อสถานบริการ</th>
+                                <th rowspan="2">ระดับ</th>
+                                <th rowspan="2">Active bed 2557</th>
+                                <th rowspan="2">ประชากร(รพ.)</th>
+
+
+
+
+                                <th rowspan="2">ขั้นสูง 100%</th>
+                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                <th colspan="8" class="center hcol">
+                                    {{haername[0]}}
+                                </th>
+                                <th colspan="8" class="center hcol">
+                                    {{haername[1]}}
+                                </th>
+                                <th rowspan="2">รวมทั้งหมด(ไม่รวม รว/ลษ)</th>
+                                <th rowspan="2">
+                                    <A NAME="history4">
+                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                    </A>
+                                </th>
+
+
+                            </tr>
+                            <tr>
+
+
+                                <th>ขรก.</th>
+                                <th>พงก.</th>
+                                <th>พกส.</th>
+                                <th>ลจ. ประจำ</th>
+                                <th>ลจ. ชั่วคราว</th>
+                                <th>รวม</th>
+                                <th>ลจ. ชั่วคราว(รว)</th>
+                                <th>ลาศึกษา</th>
+                                <th>ขรก.</th>
+                                <th>พงก.</th>
+                                <th>พกส.</th>
+                                <th>ลจ. ประจำ</th>
+                                <th>ลจ. ชั่วคราว</th>
+                                <th>รวม</th>
+                                <th>ลจ. ชั่วคราว(รว)</th>
+                                <th>ลาศึกษา</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of models;let i=index">
+                            <tr (click)="clickcoli(i)" [ngClass]="{coltr: i==coli}">
+                                <td>{{i+1}}</td>
+                                <td *ngFor="let item2 of models | keys;let j=index" [ngClass]="{ckcol: item[item2]==0}">
+                                    <!--<span>{{item[item2]}}>>>{{j}}</span>-->
+                                    <span *ngIf="j<24" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                    <!--<a href="#" data-toggle="modal" data-target="#myModal" (click)="clickshow(j,item.hcode,idpos2,keypos)" *ngIf="j>=7&&j!=24" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</a>-->
+                                    <span class="badge badge bisix" *ngIf="j==24" [ngClass]="{col1: item[item2]=='0.00'&&j==24,col2: item[item2]<'0.00'&&j==24,col3: item[item2]>'0.00'&&j==24}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                    <!--<a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="clickshow(j,item.id_position,hc)" *ngIf="j>=2">{{item[item2]}}</a>-->
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot *ngFor="let item of models;let i=index">
+                            <tr *ngIf="i<1">
+                                <th colspan="1">รวม</th>
+                                <td *ngFor="let item2 of models | keys;let j=index">
+                                    <span *ngIf="j>2&&j!=24">{{models|sums:item2|number}}</span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+
+
+
+
+
+
+
+                <div class="table-responsive" *ngIf="idpos2==3">
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">#</th>
+                                <th rowspan="2">รหัส</th>
+                                <th rowspan="2" class="trmw200">ชื่อสถานบริการ</th>
+                                <th rowspan="2">ระดับ</th>
+                                <th rowspan="2">Active bed 2557</th>
+                                <th rowspan="2">ประชากร(รพ.)</th>
+
+
+
+                                <th rowspan="2">ขั้นสูง 100%</th>
+                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                <th colspan="8" class="center hcol"> {{haername[0]}}</th>
+                                <th colspan="8" class="center hcol"> {{haername[1]}}</th>
+                                <th colspan="8" class="center hcol"> {{haername[2]}}</th>
+                                <th rowspan="2">รวมทั้งหมด(ไม่รวม รว/ลษ)</th>
+                                <th rowspan="2">
+                                    <A NAME="history9">
+                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                    </A>
+                                </th>
+
+
+                            </tr>
+                            <tr>
+
+
+
+
+
+
+                                <th>ขรก.</th>
+                                <th>พงก.</th>
+                                <th>พกส.</th>
+                                <th>ลจ. ประจำ</th>
+                                <th>ลจ. ชั่วคราว</th>
+                                <th>รวม</th>
+                                <th>ลจ. ชั่วคราว(รว)</th>
+                                <th>ลาศึกษา</th>
+                                <th>ขรก.</th>
+                                <th>พงก.</th>
+                                <th>พกส.</th>
+                                <th>ลจ. ประจำ</th>
+                                <th>ลจ. ชั่วคราว</th>
+                                <th>รวม</th>
+                                <th>ลจ. ชั่วคราว(รว)</th>
+                                <th>ลาศึกษา</th>
+                                <th>ขรก.</th>
+                                <th>พงก.</th>
+                                <th>พกส.</th>
+                                <th>ลจ. ประจำ</th>
+                                <th>ลจ. ชั่วคราว</th>
+                                <th>รวม</th>
+                                <th>ลจ. ชั่วคราว(รว)</th>
+                                <th>ลาศึกษา</th>
+
+
+
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of models;let i=index">
+                            <tr (click)="clickcoli(i)" [ngClass]="{coltr: i==coli}">
+                                <td>{{i+1}}</td>
+                                <td *ngFor="let item2 of models | keys;let j=index" [ngClass]="{ckcol: item[item2]==0}">
+                                    <!--<span>{{item[item2]}}>>>{{j}}</span>-->
+                                    <span *ngIf="j<32" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                    <!--<a href="#" data-toggle="modal" data-target="#myModal" (click)="clickshow(j,item.hcode)" *ngIf="j>=7&&j!=32" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</a>-->
+                                    <span class="badge badge bisix" *ngIf="j==32" [ngClass]="{col1: item[item2]=='0.00'&&j==32,col2: item[item2]<'0.00'&&j==32,col3: item[item2]>'0.00'&&j==32}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                    <!--<a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="clickshow(j,item.id_position,hc)" *ngIf="j>=2">{{item[item2]}}</a>-->
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot *ngFor="let item of models;let i=index">
+                            <tr *ngIf="i<1">
+                                <th colspan="1">รวม</th>
+                                <td *ngFor="let item2 of models | keys;let j=index">
+                                    <span *ngIf="j>2&&j!=32">{{models|sums:item2|number}}</span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+
+
+
+
+
+                <div class="table-responsive" *ngIf="idpos2==4">
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">#</th>
+                                <th rowspan="2">รหัส</th>
+                                <th rowspan="2" class="trmw200">ชื่อสถานบริการ</th>
+                                <th rowspan="2">ระดับ</th>
+                                <th rowspan="2">Active bed 2557</th>
+                                <th rowspan="2">ประชากร(รพ.)</th>
+
+
+
+                                <th rowspan="2">ขั้นสูง 100%</th>
+                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                <th colspan="8" class="center hcol"> {{haername[0]}}</th>
+                                <th colspan="8" class="center hcol"> {{haername[1]}}</th>
+                                <th colspan="8" class="center hcol"> {{haername[2]}}</th>
+                                <th colspan="8" class="center hcol"> {{haername[3]}}</th>
+                                <th rowspan="2">รวมทั้งหมด(ไม่รวม รว/ลษ)</th>
+                                <th rowspan="2">
+                                    <A NAME="history5">
+                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                    </A>
+                                </th>
+
+                            </tr>
+                            <tr>
+                                <th>ขรก.</th>
+                                <th>พงก.</th>
+                                <th>พกส.</th>
+                                <th>ลจ. ประจำ</th>
+                                <th>ลจ. ชั่วคราว</th>
+                                <th>รวม</th>
+                                <th>ลจ. ชั่วคราว(รว)</th>
+                                <th>ลาศึกษา</th>
+                                <th>ขรก.</th>
+                                <th>พงก.</th>
+                                <th>พกส.</th>
+                                <th>ลจ. ประจำ</th>
+                                <th>ลจ. ชั่วคราว</th>
+                                <th>รวม</th>
+                                <th>ลจ. ชั่วคราว(รว)</th>
+                                <th>ลาศึกษา</th>
+                                <th>ขรก.</th>
+                                <th>พงก.</th>
+                                <th>พกส.</th>
+                                <th>ลจ. ประจำ</th>
+                                <th>ลจ. ชั่วคราว</th>
+                                <th>รวม</th>
+                                <th>ลจ. ชั่วคราว(รว)</th>
+                                <th>ลาศึกษา</th>
+                                <th>ขรก.</th>
+                                <th>พงก.</th>
+                                <th>พกส.</th>
+                                <th>ลจ. ประจำ</th>
+                                <th>ลจ. ชั่วคราว</th>
+                                <th>รวม</th>
+                                <th>ลจ. ชั่วคราว(รว)</th>
+                                <th>ลาศึกษา</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of models;let i=index">
+                            <tr (click)="clickcoli(i)" [ngClass]="{coltr: i==coli}">
+                                <td>{{i+1}}</td>
+                                <td *ngFor="let item2 of models | keys;let j=index" [ngClass]="{ckcol: item[item2]==0}">
+                                    <!--<span>{{item[item2]}}>>>{{j}}</span>-->
+                                    <span *ngIf="j<40" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                    <!--<a href="#" data-toggle="modal" data-target="#myModal" (click)="clickshow(j,item.hcode)" *ngIf="j>=7&&j!=40" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</a>-->
+
+
+                                    <span class="badge badge bisix" *ngIf="j==40" [ngClass]="{col1: item[item2]=='0.00'&&j==40,col2: item[item2]<'0.00'&&j==40,col3: item[item2]>'0.00'&&j==40}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                    <!--<a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="clickshow(j,item.id_position,hc)" *ngIf="j>=2">{{item[item2]}}</a>-->
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot *ngFor="let item of models;let i=index">
+                            <tr *ngIf="i<1">
+                                <th colspan="1">รวม</th>
+                                <td *ngFor="let item2 of models | keys;let j=index">
+                                    <span *ngIf="j>2&&j!=40">{{models|sums:item2|number}}</span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">รายชื่อบุคลากร</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>รูปภาพ</th>
+                                            <th>ประเภทบุคลากร</th>
+                                            <th>ชื่อ - นามสกุล</th>
+                                            <th>สถานที่ปฎิบัติงานจริง</th>
+                                            <th>ตำแหน่ง</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let item of models3;let m=index">
+                                        <tr (click)="clickcolm(m)" [ngClass]="{coltr: m==colm}">
+                                            <td>{{m+1}}</td>
+                                            <td *ngFor="let item2 of models3 | keys;let n=index">
+                                                <img *ngIf="n<1" src="http://164.115.22.73/p/pis-v4/images/img/{{item[item2]}}" class="siimg img-thumbnail" />
+                                                <span *ngIf="n>=1">{{item[item2]}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

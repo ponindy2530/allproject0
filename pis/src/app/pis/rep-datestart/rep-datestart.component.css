@@ -1,0 +1,29 @@
+.coltr {
+    background-color: #FFEB3B;
+    font-weight: bolder;
+}
+
+.siimg {
+    width: 60px;
+    height: 60px;
+}
+
+.bisix {
+    width: 50px;
+}
+
+.trw50 {
+    width: 50px;
+}
+
+.trw80 {
+    width: 80px;
+}
+
+.trmw200 {
+    min-width: 200px;
+}
+
+.ckcol {
+    background-color: #E0E0E0;
+}

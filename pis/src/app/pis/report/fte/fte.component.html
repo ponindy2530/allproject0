@@ -1,0 +1,651 @@
+<div class="row" *ngIf="loading">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 h1 center">
+        <br />
+        <br />
+        <br />
+        <br /> กำลังโหลดข้อมูล...
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div *ngIf="!loading">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+            </li>
+            <li class="active">FTE(รพ.) สายวิชาชีพ</li>
+        </ul>
+        <!-- /.breadcrumb -->
+
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+            </form>
+        </div>
+        <!-- /.nav-search -->
+    </div>
+    <br />
+
+
+
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 widget-container-col ui-sortable" id="widget-container-col-4">
+
+            <div class="widget-box ui-sortable-handle" id="widget-box-4">
+                <div class="widget-header widget-header-large">
+                    <h4 class="widget-title"> <i class="ace-icon fa fa-chevron-circle-right"></i> FTE(รพ.) สายวิชาชีพ</h4>
+
+                    <div class="widget-toolbar">
+                        <button class="btn btn-sm  btn-primary btn-white" routerLink="/Group123Sw" routerLinkActive="active">
+															<i class="ace-icon fa fa-link"></i>
+														FTE(รพ.) สายสนับสนุน
+														</button>
+
+                        <button class="btn btn-sm  btn-primary btn-white" routerLink="/FteHot" routerLinkActive="active">
+															<i class="ace-icon fa fa-link"></i>
+														FTE(รพ.) สายวิชาชีพ รายสถานบริการ
+														</button>
+                        <button class="btn btn-sm  btn-primary btn-white" routerLink="/Ftepos1" routerLinkActive="active">
+															<i class="ace-icon fa fa-link"></i>
+														FTE(รพ.) สายวิชาชีพ รายตำแหน่ง
+														</button>
+                        <!--<div class="btn-group">
+                            <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle" aria-expanded="false">
+                            <i class="ace-icon fa fa-th-list"></i>
+													เลือกตำแหน่ง
+													<span class="ace-icon fa fa-caret-down icon-on-right"></span>
+												</button>
+
+                            <ul class="dropdown-menu dropdown-default">
+                                <li *ngFor="let item of models2;let k=index" [ngClass]="{coltr: k==colk}">
+                                    <a href="/Fte#history{{item.id}}">{{item.id}} - {{item.headname_mini}}</a>
+                                </li>
+
+                            </ul>
+                        </div>-->
+                    </div>
+
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="2">#</th>
+                                                <th rowspan="2">รหัส</th>
+                                                <th rowspan="2" class="trmw200">ชื่อสถานบริการ</th>
+                                                <th rowspan="2">ระดับ</th>
+                                                <th rowspan="2">Active bed 2557</th>
+                                                <th rowspan="2">ประชากร(รพ.)</th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">นายแพทย์(60104)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history1">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">ทันตแพทย์(60204)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history2">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">เภสัชกร(60603)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history3">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">
+                                                    พยาบาลวิชาชีพ(61523)
+                                                </th>
+                                                <th colspan="8" class="center hcol">
+                                                    นักวิชาการสาธารณสุข(พยาบาล)(62601)
+                                                </th>
+                                                <th rowspan="2">รวมทั้งหมด(ไม่รวม รว/ลษ)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history4">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">นักเทคนิคการแพทย์(60413)</th>
+                                                <th colspan="8" class="center hcol">นักวิทยาศาสตร์(82950)</th>
+                                                <th colspan="8" class="center hcol">เจ้าพนักงานวิทยาศาสตร์การแพทย์(62212)</th>
+                                                <th colspan="8" class="center hcol">นักวิทยาศาสตร์(เทคนิคการแพทย์)(62602)</th>
+                                                <th rowspan="2">รวมทั้งหมด(ไม่รวม รว/ลษ)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history5">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">นักกายภาพบำบัด(61803)</th>
+                                                <th colspan="8" class="center hcol">นักวิชาการสาธารณสุข(กายภาพ)(62603)</th>
+                                                <th rowspan="2">รวมทั้งหมด(ไม่รวม รว/ลษ)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history6">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">นักรังสีการแพทย์(61723)</th>
+                                                <th colspan="8" class="center hcol">เจ้าพนักงานรังสีการแพทย์(61724)</th>
+                                                <th rowspan="2">รวมทั้งหมด(ไม่รวม รว/ลษ)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history7">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">นักกิจกรรมบำบัด(61914)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history8">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">นักวิชาการสาธารณสุข(ทันต)(62504)</th>
+                                                <th colspan="8" class="center hcol">เจ้าพนักงานทันตสาธารณสุข(62802)</th>
+                                                <th colspan="8" class="center hcol">เจ้าพนักงานทันต(ผช.ทันตะ)(62605)</th>
+                                                <th rowspan="2">รวมทั้งหมด(ไม่รวม รว/ลษ)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history9">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">นักจิตวิทยาคลินิก(61204)</th>
+                                                <th colspan="8" class="center hcol">นักจิตวิทยา(61203)</th>
+                                                <th rowspan="2">รวมทั้งหมด(ไม่รวม รว/ลษ)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history10">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">เจ้าพนักงานเภสัชกรรม(62312)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history11">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">นักโภชนาการ(60813)</th>
+                                                <th colspan="8" class="center hcol">โภชนากร(60802)</th>
+                                                <th rowspan="2">รวมทั้งหมด(ไม่รวม รว/ลษ)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history12">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">แพทย์แผนไทย(60414)</th>
+                                                <th colspan="8" class="center hcol">นักวิชาการสาธารณสุข(แพทย์แผนไทย)(62604)</th>
+                                                <th colspan="8" class="center hcol">เจ้าพนักงานสาธารณสุข(อายุรเวท)(62600)</th>
+                                                <th rowspan="2">รวมทั้งหมด(ไม่รวม รว/ลษ)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history13">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">นักวิชาการเวชสถิติ(12003)</th>
+                                                <th colspan="8" class="center hcol">เจ้าพนักงานเวชสถิติ(12304)</th>
+                                                <th rowspan="2">รวมทั้งหมด(ไม่รวม รว/ลษ)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history14">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">เจ้าพนักงานโสตทัศนศึกษา(32512)</th>
+                                                <th colspan="8" class="center hcol">นักวิชาการโสตทัศนศึกษา(32523)</th>
+                                                <th rowspan="2">รวมทั้งหมด(ไม่รวม รว/ลษ)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history15">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">เจ้าพนักงานสาธารณสุข(เวชกิจ)(62803)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history16">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">นักวิชาการสาธารณสุข(62503)</th>
+                                                <th colspan="8" class="center hcol">เจ้าพนักงานสาธารณสุข(63503)</th>
+
+                                                <th rowspan="2">รวมทั้งหมด(ไม่รวม รว/ลษ)</th>
+                                                <th rowspan="2">
+                                                    <A NAME="history17">
+                                                        <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                    </A>
+                                                </th>
+
+                                                <th rowspan="2">ขั้นสูง 100%</th>
+                                                <th rowspan="2">ขั้นต่ำ 80% ควรมี</th>
+                                                <th colspan="8" class="center hcol">รวมทั้งหมดทุกตำแหน่ง(FTE2)</th>
+                                                <th rowspan="2">
+                                                    <div class="center"><span class="col2 badge badge bisix">ขาด</span><span class="col3 badge badge bisix">เกิน</span><span class="col1 badge badge bisix">พอดี</span></div>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+                                                <th>ขรก.</th>
+                                                <th>พงก.</th>
+                                                <th>พกส.</th>
+                                                <th>ลจ. ประจำ</th>
+                                                <th>ลจ. ชั่วคราว</th>
+                                                <th>รวม</th>
+                                                <th>ลจ. ชั่วคราว(รว)</th>
+                                                <th>ลาศึกษา</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="let item of models;let i=index">
+                                            <tr (click)="clickcoli(i)" [ngClass]="{coltr: i==coli}">
+                                                <td>{{i+1}}</td>
+                                                <td *ngFor="let item2 of models | keys;let j=index" [ngClass]="{ckcol: item[item2]==0}">
+                                                    <!--<span>{{item[item2]}}>>>{{j}}</span>-->
+                                                    <span *ngIf="j<7||j==16||j==17||j==27||j==28||j==38||j==39||j==58||j==59||j==94||j==95||j==114||j==115||j==134||j==135||j==145||j==146||j==173||j==174||j==193||j==194||j==204||j==205||j==224||j==225||j==252||j==253||j==272||j==273||j==292||j==293||j==303||j==304||j==323||j==324"
+                                                        tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                                    <a href="#" data-toggle="modal" data-target="#myModal" (click)="clickshow(j,item.hcode)" *ngIf="j>=7&&j!=15&&j!=16&&j!=17&&j!=26&&j!=27&&j!=28&&j!=37&&j!=38&&j!=39&&j!=57&&j!=58&&j!=59&&j!=93&&j!=94&&j!=95&&j!=113&&j!=114&&j!=115&&j!=133&&j!=134&&j!=135&&j!=144&&j!=145&&j!=146&&j!=172&&j!=173&&j!=174&&j!=192&&j!=193&&j!=194&&j!=203&&j!=204&&j!=205&&j!=223&&j!=224&&j!=225&&j!=251&&j!=252&&j!=253&&j!=271&&j!=272&&j!=273&&j!=291&&j!=292&&j!=293&&j!=302&&j!=303&&j!=304&&j!=322&&j!=323&&j!=324&&j!=333"
+                                                        tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</a>
+                                                    <span class="badge badge bisix" *ngIf="j==15" [ngClass]="{col1: item[item2]=='0.00'&&j==15,col2: item[item2]<'0.00'&&j==15,col3: item[item2]>'0.00'&&j==15}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==26" [ngClass]="{col1: item[item2]=='0.00'&&j==26,col2: item[item2]<'0.00'&&j==26,col3: item[item2]>'0.00'&&j==26}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==37" [ngClass]="{col1: item[item2]=='0.00'&&j==37,col2: item[item2]<'0.00'&&j==37,col3: item[item2]>'0.00'&&j==37}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+
+                                                    <span class="badge badge bisix" *ngIf="j==57" [ngClass]="{col1: item[item2]=='0.00'&&j==57,col2: item[item2]<'0.00'&&j==57,col3: item[item2]>'0.00'&&j==57}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==93" [ngClass]="{col1: item[item2]=='0.00'&&j==93,col2: item[item2]<'0.00'&&j==93,col3: item[item2]>'0.00'&&j==93}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==113" [ngClass]="{col1: item[item2]=='0.00'&&j==113,col2: item[item2]<'0.00'&&j==113,col3: item[item2]>'0.00'&&j==113}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+
+                                                    <span class="badge badge bisix" *ngIf="j==133" [ngClass]="{col1: item[item2]=='0.00'&&j==133,col2: item[item2]<'0.00'&&j==133,col3: item[item2]>'0.00'&&j==133}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==144" [ngClass]="{col1: item[item2]=='0.00'&&j==144,col2: item[item2]<'0.00'&&j==144,col3: item[item2]>'0.00'&&j==144}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==172" [ngClass]="{col1: item[item2]=='0.00'&&j==172,col2: item[item2]<'0.00'&&j==172,col3: item[item2]>'0.00'&&j==172}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+
+
+                                                    <span class="badge badge bisix" *ngIf="j==192" [ngClass]="{col1: item[item2]=='0.00'&&j==192,col2: item[item2]<'0.00'&&j==192,col3: item[item2]>'0.00'&&j==192}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==203" [ngClass]="{col1: item[item2]=='0.00'&&j==203,col2: item[item2]<'0.00'&&j==203,col3: item[item2]>'0.00'&&j==203}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==223" [ngClass]="{col1: item[item2]=='0.00'&&j==223,col2: item[item2]<'0.00'&&j==223,col3: item[item2]>'0.00'&&j==223}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+
+                                                    <span class="badge badge bisix" *ngIf="j==251" [ngClass]="{col1: item[item2]=='0.00'&&j==251,col2: item[item2]<'0.00'&&j==251,col3: item[item2]>'0.00'&&j==251}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==271" [ngClass]="{col1: item[item2]=='0.00'&&j==271,col2: item[item2]<'0.00'&&j==271,col3: item[item2]>'0.00'&&j==271}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==291" [ngClass]="{col1: item[item2]=='0.00'&&j==291,col2: item[item2]<'0.00'&&j==291,col3: item[item2]>'0.00'&&j==291}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+
+                                                    <span class="badge badge bisix" *ngIf="j==302" [ngClass]="{col1: item[item2]=='0.00'&&j==302,col2: item[item2]<'0.00'&&j==302,col3: item[item2]>'0.00'&&j==302}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==322" [ngClass]="{col1: item[item2]=='0.00'&&j==322,col2: item[item2]<'0.00'&&j==322,col3: item[item2]>'0.00'&&j==322}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                                    <span class="badge badge bisix" *ngIf="j==333" [ngClass]="{col1: item[item2]=='0.00'&&j==333,col2: item[item2]<'0.00'&&j==333,col3: item[item2]>'0.00'&&j==333}" tooltipPosition="top" pTooltip="{{item.hname}}">{{item[item2]}}</span>
+                                                    <!--<a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="clickshow(j,item.id_position,hc)" *ngIf="j>=2">{{item[item2]}}</a>-->
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot *ngFor="let item of models;let i=index">
+                                            <tr *ngIf="i<1">
+                                                <th colspan="1">รวม</th>
+                                                <td *ngFor="let item2 of models | keys;let j=index">
+                                                    <span *ngIf="j>2&&j!=15&&j!=26&&j!=37&&j!=57&&j!=93&&j!=113&&j!=133&&j!=144&&j!=172&&j!=192&&j!=203&&j!=223&&j!=251&&j!=271&&j!=291&&j!=302&&j!=322&&j!=333">{{models|sums:item2|number}}</span>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">รายชื่อบุคลากร</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>รูปภาพ</th>
+                                                                <th>ประเภทบุคลากร</th>
+                                                                <th>ชื่อ - นามสกุล</th>
+                                                                <th>สถานที่ปฎิบัติงานจริง</th>
+                                                                <th>ตำแหน่ง</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody *ngFor="let item of models3;let m=index">
+                                                            <tr (click)="clickcolm(m)" [ngClass]="{coltr: m==colm}">
+                                                                <td>{{m+1}}</td>
+                                                                <td *ngFor="let item2 of models3 | keys;let n=index">
+                                                                    <img *ngIf="n<1" src="http://164.115.22.73/p/pis-v4/images/img/{{item[item2]}}" class="siimg img-thumbnail" />
+                                                                    <span *ngIf="n>=1">{{item[item2]}}</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

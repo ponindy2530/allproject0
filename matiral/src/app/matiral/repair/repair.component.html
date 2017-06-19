@@ -1,0 +1,182 @@
+<div class="row" *ngIf="loading">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 h1 center">
+        <br />
+        <br />
+        <br />
+        <br /> กำลังโหลดข้อมูล...
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div *ngIf="!loading">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+            </li>
+            <li class="active">แจ้งปัญหา/แจ้งซ่อม</li>
+        </ul>
+        <!-- /.breadcrumb -->
+
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+            </form>
+        </div>
+        <!-- /.nav-search -->
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3"></div>
+        <form (ngSubmit)="save();" #matiral="ngForm">
+            <div class="col-md-6">
+                <div class="widget-box ui-sortable-handle" id="widget-box-4">
+                    <div class="widget-header widget-header-large">
+                        <h4 class="widget-title"> <i class="fa fa-desktop"></i> แบบฟอร์มการแจ้งซ่อม</h4>
+
+                        <div class="widget-toolbar">
+
+                        </div>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="control-label input-label txred" for="address"><b>วัน/เดือน/ปีที่แจ้ง <span>*</span></b></label>
+                                    <input class="form-control" [(ngModel)]="model.DATE_SERV" id="DATE_SERV" name="DATE_SERV" type="date" pTooltip="วัน/เดือน/ปีที่แจ้ง" required disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="control-label input-label txred" for="address"><b>ชื่อผู้ที่แจ้ง <span>*</span></b></label>
+                                    <select class="form-control" [(ngModel)]="model.CID" id="CID" name="CID" pTooltip="ชื่อผู้ที่แจ้ง" required disabled>
+                  <option *ngFor="let item of models9;let i=index"  [value]="item.cid"> {{item.fullname}}</option>  
+                </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="control-label input-label txred" for="address"><b>ฝ่าย/กลุ่มงานที่แจ้ง <span>*</span></b></label>
+                                    <select class="form-control" [(ngModel)]="model.PARTYCODE" id="PARTYCODE" name="PARTYCODE" (change)="selectfilter3($event)" pTooltip="ฝ่ายที่รับผิดชอบ" required disabled>
+                  <option *ngFor="let item of models5;let i=index"  [value]="item.groupcodessj">{{item.groupnamessj}} ({{item.groupnamessj_sm}})</option>  
+                </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="control-label input-label txred" for="address"><b>ชื่อครุภัณฑ์ <span>*</span></b></label>
+                                    <select class="form-control" [(ngModel)]="model.MID" id="MID" name="MID" pTooltip="ชื่อครุภัณฑ์" required>
+                  <option *ngFor="let item of models2;let i=index"  [value]="item.OID"> {{item.MATIRALCODE_FULL}} - {{item.MATIRALNAME}}</option>  
+                </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="control-label input-label txred" for="ACTION"><b>ปัญหา/อาการเสีย <span>*</span></b></label>
+                                    <textarea class="form-control" [(ngModel)]="model.ACTION" id="ACTION" name="ACTION" rows="4" required></textarea>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4"><button class="btn btn-primary btn-block">บันทึกข้อมูล</button></div>
+                                <div class="col-md-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="col-md-3"></div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="widget-box ui-sortable-handle" id="widget-box-4">
+                <div class="widget-header widget-header-large">
+                    <h4 class="widget-title"> <i class="fa fa-desktop"></i> รายการแจ้งซ่อม</h4>
+
+                    <div class="widget-toolbar">
+
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <div class="table-responsive" style="overflow-y: auto; height: 400px;">
+                            <table class="table table-striped table-bordered table-condensed table-hover">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="3">ลำดับ</th>
+                                        <th rowspan="3">รูปภาพ</th>
+                                        <th rowspan="3">วันที่แจ้ง</th>
+                                        <th rowspan="3">ผู้แจ้ง</th>
+                                        <th rowspan="3">ครุภัณฑ์</th>
+                                        <th rowspan="3">อาการ/ปัญหา</th>
+                                        <th rowspan="3">สาเหตุ/วิธีการแก้ไข</th>
+                                        <th rowspan="4">ผู้ดำเนินการ</th>
+                                        <th colspan="9" class="center">สถานะการซ่อม</th>
+                                        <th rowspan="3">ค่าใช้จ่าย</th>
+                                        <th rowspan="3">ยกเลิกการซ่อม</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 50px;" rowspan="2">รอรับซ่อม</th>
+                                        <th style="width: 50px;" rowspan="2">รับซ่อม/กำลังดำเนินการ</th>
+                                        <th style="width: 50px;" colspan="4">ไม่สามารถเองซ่อมได้/รอส่งเคลม</th>
+                                        <th style="width: 50px;" colspan="2">ดำเนินการเรียบร้อย</th>
+                                        <th style="width: 50px;" rowspan="2">วันที่เสร็จ</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 50px;">รอส่งเคลม</th>
+                                        <th style="width: 50px;">รับเครื่อง</th>
+                                        <th style="width: 50px;">ส่งเคลมร้าน</th>
+                                        <th style="width: 50px;">ส่งคืน</th>
+                                        <th style="width: 50px;">ซ่อมเอง </th>
+                                        <th style="width: 50px;">ร้านซ่อม</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let item of models3;let i=index">
+                                    <tr>
+                                        <td>{{i+1}}</td>
+                                        <td>
+                                            <img src="http://203.157.182.17/yiiapi/images/matira/{{item.IMGS}}" class="siimg2 img-thumbnail" pTooltip="รูปภาพ:{{item.MID}}">
+                                        </td>
+                                        <td>{{item.DATE_SERV}} <span class="badge badge-warning" *ngIf="item.news=='v1'">New</span></td>
+                                        <td>{{item.fullname}} - {{item.groupnamessj_sm}}</td>
+                                        <td>{{item.MATIRALCODE_FULL}} - {{item.MATIRALNAME}}</td>
+                                        <td> {{item.ACTION}}</td>
+                                        <td> {{item.COMMENT}}</td>
+                                        <td> {{item.fullname_sv}}</td>
+                                        <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.STATUS=='1'"></i></td>
+                                        <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.STATUS=='2'"></i></td>
+                                        <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.stkam=='1'"></i></td>
+                                        <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.stkam=='2'"></i></td>
+                                        <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.stkam=='3'"></i></td>
+                                        <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.stkam=='4'"></i></td>
+                                        <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.stz=='1'"></i></td>
+                                        <td><i class="fa fa-check-circle fa-2x text-success" *ngIf="item.stz=='2'"></i></td>
+                                        <td>{{item.D_SUCCESS}}</td>
+                                        <td> {{item.EXPENS|number}}</td>
+                                        <td>
+                                            <div class="btn-group">
+
+                                                <button class="btn btn-xs btn-danger" (click)="delete(item,i);">
+									                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+								                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

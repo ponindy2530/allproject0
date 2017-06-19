@@ -1,0 +1,5 @@
+<ul class="nav-menu hidden-xs">
+    <a *ngFor="let item of models" routerLink="{{item.m_url}}" routerLinkActive="active">
+        <li class="{{item.m_active}}"><i class="{{item.m_icon}}"></i> {{item.m_rootname}}</li>
+    </a>
+</ul>

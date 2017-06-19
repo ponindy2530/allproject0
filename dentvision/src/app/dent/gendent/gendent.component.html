@@ -1,0 +1,72 @@
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+        </li>
+        <li class="active">ข้อมูลทั่วไป</li>
+    </ul>
+    <!-- /.breadcrumb -->
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th height="141" width="72">#</th>
+                        <th align="left" width="58">รหัส</th>
+                        <th align="left" width="124">อำเภอ</th>
+                        <th align="left" width="58">ระดับ</th>
+                        <th width="54">ประชากร</th>
+                        <th width="54">จำนวนทันตแพทย์ทั้งอำเภอ</th>
+                        <th width="72">สัดส่วนทันตแพทย์ต่อประชากร</th>
+                        <th width="54">จำนวนทันตแพทย์ทั่วไป</th>
+                        <th width="54">จำนวนทันตแพทย์เฉพาะลาศึกษาต่อ</th>
+                        <th width="54">จำนวนทันตแพทย์เฉพาะทางปฏิบัติงาน</th>
+                        <th width="54">ทันตแพทย์เอกชน</th>
+                        <th width="54">ทันตแพทย์รัฐอื่น ๆ</th>
+                        <th width="54">จำนวนทันตาภิบาลทั้งหมด</th>
+                        <th width="86">สัดส่วนทันตาภิบาลต่อประชากร</th>
+                        <th width="54">ทันตาภิบาล ใน รพ.</th>
+                        <th width="54">ทันตาภิบาล ใน รพ.สต.</th>
+                        <th width="54">ทันตาภิบาลในตำแหน่งนักวิชาการ ฝ่ายทันตฯ</th>
+                        <th width="54">ทันตาภิบาลในตำแหน่ง นวก.ฝ่ายอื่น</th>
+                        <th width="54">ผู้ช่วยทันตแพทย์ตำแหน่งเจ้าพนักงานทันตฯ</th>
+                        <th width="54">ลูกจ้างทันตกรรมใน รพ.</th>
+                        <th width="54">ลูกจ้างทันตกรรมใน รพ.สต.</th>
+                        <th width="54">จำนวนช่างทันตกรรม</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of models;let i=index">
+                    <tr (click)="clickcoltr(i)" [ngClass]="{coltr: i==coli}">
+                        <td *ngFor="let item2 of models | keys;let j=index">
+                            <a routerLink="/Rpdent/{{item.ampcode}}" routerLinkActive="active" *ngIf="j==2">{{item[item2]}}</a>
+                            <span *ngIf="j!=2">{{item[item2]}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot *ngFor="let item of models1;let i=index">
+                    <tr>
+                        <th colspan="4">รวม</th>
+                        <td *ngFor="let item2 of models1 | keys;let j=index">
+                            {{models|sums:item2}}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

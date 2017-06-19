@@ -1,0 +1,25 @@
+    .ace-icon {
+        display: block;
+        font-size: 42px;
+        margin: 0 0 4px;
+        line-height: 36px;
+        min-width: 0;
+        padding: 0;
+    }
+    
+    .btn.btn-app.radius-4 {
+        border-radius: 4px;
+    }
+    
+    .btn.btn-app {
+        display: inline-block;
+        width: 150px;
+        font-size: 18px;
+        font-weight: 400;
+        text-align: center;
+        border: none;
+        padding: 12px 0 8px;
+        margin: 2px;
+        line-height: 1.7;
+        position: relative;
+    }

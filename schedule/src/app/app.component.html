@@ -1,0 +1,51 @@
+<div id="fb-root">
+</div>
+
+<div class="topBar">
+
+    <div class="iNavMenu">
+        <i class="fa fa-bars" id="showRight"></i>
+    </div>
+
+</div>
+
+<app-manu-mini></app-manu-mini>
+<div class="contentArea">
+    <!-- Start Cover -->
+    <div class="youlikeCover">
+        <app-head></app-head>
+        <app-manu></app-manu>
+        <div class="clear-all"></div>
+    </div>
+    <!-- End Cover -->
+
+
+    <!-- Box CMER -->
+    <div class="conbox-full">
+        <div class="conbox-head">
+            <div class="row">
+                <a href="javascript:refresh_hilight();">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h1>{{title}}</h1>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="conbox-body">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="conbox-footer"></div>
+    </div>
+</div>
+<!-- Timeline -->
+<div class="contentArea">
+
+    <app-foot></app-foot>
+
+
+
+
+
+
+</div>
+<!-- End Timeline -->

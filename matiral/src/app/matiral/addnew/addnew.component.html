@@ -1,0 +1,371 @@
+<div class="row" *ngIf="loading">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 h1 center">
+        <br />
+        <br />
+        <br />
+        <br /> กำลังโหลดข้อมูล...
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div *ngIf="!loading">
+    <p-confirmDialog width="425"></p-confirmDialog>
+    <p-growl [value]="msgs"></p-growl>
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+            </li>
+            <li class="active">ฟอร์มป้อน/แก้ไขข้อมูลครุภัณฑ์</li>
+        </ul>
+        <!-- /.breadcrumb -->
+
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+            </form>
+        </div>
+        <!-- /.nav-search -->
+    </div>
+
+    <br />
+
+    <form (ngSubmit)="save();" #matiral="ngForm">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="widget-box ui-sortable-handle" id="widget-box-4">
+                    <div class="widget-header widget-header-large">
+                        <h4 class="widget-title"> <i class="fa fa-search"></i> ค้นหา</h4>
+
+                        <div class="widget-toolbar">
+
+                        </div>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label input-label" for="searchcode"><b>ค้นหาด้วยรหัสครุภัณฑ์</b></label>
+                                    <input type="text" class="form-control" [(ngModel)]="searchcode" id="searchcode" name="searchcode" (keyup)="getsearch($event,1)" placeholder="ค้นหา" autofocus>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label input-label" for="searchcode1"><b>ค้นหาประเภทครุภัณฑ์</b></label>
+                                    <select class="form-control" [(ngModel)]="searchcode1" id="searchcode1" name="searchcode1" (change)="getsearch($event,2)">
+                        <option *ngFor="let item of models1;let i=index"  [value]="item.GROUPCODE"> {{item.GROUPNAME}}</option>  
+                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label input-label" for="searchcode2"><b>ค้นหาชนิดครุภัณฑ์</b></label>
+                                    <select class="form-control" [(ngModel)]="searchcode2" id="searchcode2" name="searchcode2" (change)="getsearch($event,1)">
+                         <option *ngFor="let item of models2;let i=index"  [value]="item.TYPECODE2"> {{item.TYPENAME}}</option>  
+                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-box ui-sortable-handle" id="widget-box-4">
+                    <div class="widget-header widget-header-large">
+                        <h4 class="widget-title"> <i class="fa fa-desktop"></i> ครุภัณฑ์</h4>
+
+                        <div class="widget-toolbar">
+
+                        </div>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label input-label"><b>รหัสครุภัณฑ์</b></label>
+                                    <input type="text" class="form-control" [value]="model.MATIRATYPECODE" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label input-label txred" for="MATIRATYPECODE"><b>ชื่อครุภัณฑ์</b> <span>*</span></label>
+                                    <select class="form-control" [(ngModel)]="model.MATIRATYPECODE" id="MATIRATYPECODE" name="MATIRATYPECODE" (change)="getmax($event)" required>
+                        <option *ngFor="let item of models3;let i=index"  [value]="item.MATIRATYPECODE"> {{item.ATTRIBUTE}}</option>  
+                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="control-label input-label txred" for="MATIRALCODE"><b>ลำดับครุภัณฑ์</b> <span>*</span></label>
+                                    <input type="text" class="form-control" [(ngModel)]="model.MATIRALCODE" id="MATIRALCODE" name="MATIRALCODE" disabled="{{!model.MATIRATYPECODE}}" (keyup)="getckmax($event,model.MATIRATYPECODE)" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label input-label" for="MATIRALCODE"><b>รุ่น / ยี่ห้อ</b></label>
+                                    <input type="text" class="form-control" [(ngModel)]="model.BRAND" id="BRAND" name="BRAND">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label input-label" for="MATIRALCODE"><b>ขนาด</b></label>
+                                    <input type="text" class="form-control" [(ngModel)]="model.SIZE" id="SIZE" name="SIZE">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label input-label" for="MATIRALCODE"><b>หน่วยนับ</b></label>
+                                    <select class="form-control" [(ngModel)]="model.UNITCODE" id="UNITCODE" name="UNITCODE">
+                                        <option *ngFor="let item of models15;let i=index"  [value]="item.id_unit"> {{item.id_unit}} - {{item.name_unit}}</option>  
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label input-label txred" for="DATE_SERV"><b>วัน/เดือน/ปีที่ลงทะเบียน</b> <span>*</span></label>
+                                    <input class="form-control" [(ngModel)]="model.DATE_SERV" id="DATE_SERV" name="DATE_SERV" type="date" data-date-language="th-th" required />
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label input-label" for="END_DATE"><b>การสิ้นสุดรับประกัน(ปี)</b></label>
+                                    <input class="form-control" [(ngModel)]="model.END_DATE" id="END_DATE" name="END_DATE" type="text" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label input-label" for="SERIAL"><b>หมายเลขเครื่อง</b></label>
+                                    <input type="text" class="form-control" [(ngModel)]="model.SERIAL" id="SERIAL" name="SERIAL">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="control-label input-label" for="MATIRALCODE"><b>รายละเอียด</b></label>
+                                    <textarea class="form-control" [(ngModel)]="model.DETAIL" id="DETAIL" name="DETAIL" rows="9"></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="widget-box ui-sortable-handle" id="widget-box-4">
+                    <div class="widget-header widget-header-large">
+                        <h4 class="widget-title"> <i class="fa fa-money"></i> งบประมาณ</h4>
+
+                        <div class="widget-toolbar">
+
+                        </div>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label input-label" for="MATIRALCODE"><b>วิธีที่การจัดหา</b></label>
+                                    <select class="form-control" [(ngModel)]="model.SUPPLY" id="SUPPLY" name="SUPPLY">
+                        <option *ngFor="let item of models7;let i=index"  [value]="item.id_supply">{{item.id_supply}} - {{item.name_supply}}</option>  
+                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label input-label" for="MATIRALCODE"><b>ประเภทเงินที่ซื้อ</b></label>
+                                    <select class="form-control" [(ngModel)]="model.MONEYTYPE" id="MONEYTYPE" name="MONEYTYPE">
+                        <option *ngFor="let item of models6;let i=index"  [value]="item.id_money">{{item.id_money}} - {{item.name_money}}</option>  
+                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label input-label txred" for="MATIRALCODE"><b>ราคาต่อหน่วย(บาท)</b> <span>*</span></label>
+                                    <input type="text" class="form-control" [(ngModel)]="model.PRICE" id="PRICE" name="PRICE" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-box ui-sortable-handle" id="widget-box-4">
+                    <div class="widget-header widget-header-large">
+                        <h4 class="widget-title"> <i class="fa fa-user"></i> ผู้รับผิดชอบ</h4>
+
+                        <div class="widget-toolbar">
+
+                        </div>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="control-label input-label txred" for="ream"><b>การเบิกครุภัณฑ์</b> <span>*</span></label>
+                                    <select class="form-control selwid" [(ngModel)]="model.ream" id="ream" name="ream" required>
+ <option *ngFor="let item of models10099;let i=index"  [value]="item.id">{{item.id}} - {{item.ream}}</option>  
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label input-label txred" for="MATIRALCODE"><b>ฝ่ายที่รับผิดชอบ</b> <span *ngIf="model.ream==2">*</span></label>
+                                    <select class="form-control selwid" [(ngModel)]="model.PARTYCODE" id="PARTYCODE" name="PARTYCODE" disabled="{{model.ream==1}}" (change)="selectfilter3($event)" required="{{model.ream==2}}">
+ <option *ngFor="let item of models5;let i=index"  [value]="item.groupcodessj">{{item.groupcodessj}} - {{item.groupnamessj}}</option>  
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label input-label txred" for="MATIRALCODE"><b>ผู้รับผิดชอบ</b> <span *ngIf="model.ream==2">*</span></label>
+                                    <select class="form-control selwid" [(ngModel)]="model.CID" id="CID" name="CID" disabled="{{model.ream==1}}" required="{{model.ream==2}}">
+                             <option *ngFor="let item of models9|scmatiral3:numtest3;let i=index"  [value]="item.cid"> {{i+1}} - {{item.fullname}}</option>
+                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-box ui-sortable-handle" id="widget-box-4">
+                    <div class="widget-header widget-header-large">
+                        <h4 class="widget-title"> <i class="fa fa-calendar-o"></i> สถานะการใช้งาน</h4>
+
+                        <div class="widget-toolbar">
+
+                        </div>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label input-label txred" for="MATIRALCODE"><b>สถานะการจำหน่าย</b> <span>*</span></label>
+                                    <select class="form-control selwid" [(ngModel)]="model.DISTRIBUTE" id="DISTRIBUTE" name="DISTRIBUTE" required>
+ <option *ngFor="let item of models8;let i=index"  [value]="item.id_distribute"> {{item.id_distribute}} - {{item.name_distribute}}</option>   
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label input-label" for="D_DISTRIBUTE"><b>วันที่จำหน่าย</b></label>
+                                    <input class="form-control selwid" [(ngModel)]="model.D_DISTRIBUTE" id="D_DISTRIBUTE" name="D_DISTRIBUTE" pTooltip="วันที่จำหน่าย" type="date" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-box ui-sortable-handle" id="widget-box-4">
+                    <div class="widget-header widget-header-large">
+                        <h4 class="widget-title"> <i class="fa fa-institution"></i> แหล่งที่มา/ผู้ขาย/ผู้บริจาค</h4>
+
+                        <div class="widget-toolbar">
+
+                        </div>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="control-label input-label" for="PARTNERS"><b>ชื่อบริษัทที่/จำหน่าย</b></label>
+                                    <select class="form-control selwid" [(ngModel)]="model.PARTNERS" id="PARTNERS" name="PARTNERS">
+                      <option *ngFor="let item of models100;let i=index"  [value]="item.id">{{item.id_company}} - {{item.name_company_th}}</option>   
+                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary btn-block"><i class="fa fa-floppy-o"></i> บันทึกข้อมูล</button>
+    </form>
+
+    <br />
+    <div class="widget-box ui-sortable-handle" id="widget-box-4">
+        <div class="widget-header widget-header-large">
+            <h4 class="widget-title"> <i class="fa fa-desktop"></i> รายการบันทึก (ประจำวันที่:{{datenow2|date}})</h4>
+
+            <div class="widget-toolbar">
+
+            </div>
+        </div>
+
+        <div class="widget-body">
+            <div class="widget-main">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p-messages [value]="msgs"></p-messages>
+                        <p-confirmDialog width="425"></p-confirmDialog>
+                        <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                            <input #gb type="text" pInputText size="50" placeholder="ค้นหา">
+                            <button type="button" class="btn btn-sm btn-warning pull-right" pButton icon="fa-file-o" iconPos="left" label="export" (click)="dt.exportCSV()" style="float:left"></button>
+                        </div>
+                        <p-dataTable [value]="models13" [rows]="5" [rowsPerPageOptions]="[5,10,50,100,200,300]" [paginator]="true" [globalFilter]="gb" #dt>
+                            <p-column header="ลำดับ" [style]="{'width':'60px','text-align':'center'}">
+                                <template let-col let-rowData="rowData" let-rowIndex="rowIndex" pTemplate="body">
+                    {{rowIndex+1}}   
+              </template>
+                            </p-column>
+                            <p-column field="D_UPDATE" header="วันที่บันทึก" [sortable]="true" [style]="{'width':'100px','text-align':'center'}"></p-column>
+                            <p-column styleClass="col-button" header="รูปภาพ" [style]="{'width':'60px','text-align':'center'}">
+                                <template let-car="rowData" let-rowIndex="rowIndex" pTemplate="body">
+                    <img src="http://203.157.182.17/yiiapi/images/matira/{{car.IMGS}}" class="siimg img-thumbnail">
+        </template>
+                            </p-column>
+                            <p-column styleClass="col-button" header="เอกสาร" [style]="{'width':'60px','text-align':'center'}">
+                                <template let-car="rowData" let-rowIndex="rowIndex" pTemplate="body">
+                 <a href="http://203.157.182.17/yiiapi/images/doc/{{car.DOC}}" target="_blank" *ngIf="car.DOC!=''">
+                                                <i class="fa fa-file-pdf-o fa-2x text-warning"></i>
+                                            </a>
+        </template>
+                            </p-column>
+                            <p-column field="MATIRALCODE_FULL" header="รหัสครุภัณฑ์" [sortable]="true" [style]="{'width':'120px','text-align':'center'}"></p-column>
+                            <p-column field="MATIRALNAME" header="ชื่อครุณฑ์" [sortable]="true"></p-column>
+                            <p-column field="PRICE" header="ราคาต่อหน่วย(บาท)" [sortable]="true"></p-column>
+                            <p-column field="fullname" header="ผู้บันทึก" [sortable]="true"></p-column>
+                            <p-column field="nream" header="สถานะการใช้" [sortable]="true" [style]="{'width':'100px','text-align':'center'}">
+                                <template let-item="rowData" let-rowIndex="rowIndex" pTemplate="body">
+                                                 <span class="label label-success arrowed" *ngIf="item.DISTRIBUTE==9">{{item.name_distribute}}</span>
+                                            <span class="label label-warning arrowed" *ngIf="item.DISTRIBUTE!=9">{{item.name_distribute}}</span>
+   </template>
+                            </p-column>
+                            <p-column header="สถานะการเบิก" [sortable]="true" [style]="{'width':'100px','text-align':'center'}">
+                                <template let-item="rowData" let-rowIndex="rowIndex" pTemplate="body">
+                                <i class="fa fa-check-circle-o fa-2x text-success" aria-hidden="true" *ngIf="item.ream==2" tooltipPosition="top" pTooltip="มีการเบิกแล้ว"></i>
+                                                            </template>
+                            </p-column>
+                            <p-column styleClass="col-button" header="ตัวเลือก" [style]="{'width':'150px','text-align':'center'}">
+                                <template let-item="rowData" let-rowIndex="rowIndex" pTemplate="body">
+                        <div class="hidden-sm hidden-xs btn-group">
+                                                <button class="btn btn-xs btn-purple" (click)="editimg(item,1);" data-toggle="modal" data-target="#myModal">
+									<i class="ace-icon fa fa-cloud-upload bigger-120"></i>
+								</button>
+                                                <button class="btn btn-xs btn-warning" (click)="editimg(item,2);" data-toggle="modal" data-target="#myModal">
+									<i class="ace-icon fa fa-file-pdf-o bigger-120"></i>
+								</button>
+                                                <button class="btn btn-xs btn-info" (click)="getedit(item);">
+									<i class="ace-icon fa fa-pencil bigger-120"></i>
+								</button>
+                                                <button class="btn btn-xs btn-danger" (click)="delete(item,i);">
+									<i class="ace-icon fa fa-trash-o bigger-120"></i>
+								</button>
+                                            </div>
+        </template>
+                            </p-column>
+                        </p-dataTable>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="fghty789" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">{{hnameimg}}</h4>
+            </div>
+            <div class="modal-body">
+                <p-fileUpload name="nfile" url="{{upurl}}" (onUpload)="onUpload($event,oidimg2)" multiple="multiple" accept="{{tyimg}}" maxFileSize="2000000">
+                    <template pTemplate="content">
+        <ul *ngIf="uploadedFiles.length">
+            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} {{file.type}}]bytes</li>
+        </ul>
+        <label class="txred"><h5>หมายเหตุ:<br /><br />1.การอัพโหลดรูปภาพควรตั้งชื่อให้ตรงกับ<b><u>รหัสครุภัณฑ์+ลำดับที่ครุภัณฑ์:(ตัวอย่าง:1234-123-123-1.jpg)</u></b> <br /><br />2.ไฟล์ควรเป็น<b><u>.jpg</u></b> <br /><br />3.ไฟล์ไม่เกิน 2 MB <br /><br />4.อัพได้แค่ 1 รูปเท่านั้น</h5></label>
+    </template>
+                </p-fileUpload>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

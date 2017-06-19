@@ -1,0 +1,126 @@
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+        </li>
+        <li class="active">รายการเบิกครุภัณฑ์</li>
+    </ul>
+    <!-- /.breadcrumb -->
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <p-messages [value]="msgs"></p-messages>
+        <p-confirmDialog width="425"></p-confirmDialog>
+        <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal" (click)="add()"><i class="fa fa-plus"></i> เบิกครุภัณฑ์</button>
+        <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input #gb type="text" pInputText size="50" placeholder="ค้นหา">
+            <button type="button" class="btn btn-sm btn-warning pull-right" pButton icon="fa-file-o" iconPos="left" label="export" (click)="dt.exportCSV()" style="float:left"></button>
+        </div>
+        <p-dataTable [value]="models" [rows]="10" [rowsPerPageOptions]="[10,50,100,200,300]" [paginator]="true" [globalFilter]="gb" #dt>
+            <p-column header="ลำดับ" [style]="{'width':'60px','text-align':'center'}">
+                <template let-col let-rowData="rowData" let-rowIndex="rowIndex" pTemplate="body">
+                    {{rowIndex+1}}   
+              </template>
+            </p-column>
+            <p-column styleClass="col-button" header="รูปภาพ" [style]="{'width':'60px','text-align':'center'}">
+                <template let-car="rowData" let-rowIndex="rowIndex" pTemplate="body">
+                    <img src="http://203.157.182.17/yiiapi/images/matira/{{car.IMGS}}" class="siimg img-thumbnail">
+        </template>
+            </p-column>
+            <p-column field="MATIRALCODE_FULL" header="รหัสครุภัณฑ์" [sortable]="true" [style]="{'width':'150px','text-align':'center'}"></p-column>
+            <p-column field="MATIRALNAME" header="ชื่อครุภัณฑ์" [sortable]="true"></p-column>
+            <p-column styleClass="col-button" header="ผู้รับผิดชอบ" [style]="{'width':'150px','text-align':'center'}">
+                <template let-car="rowData" let-rowIndex="rowIndex" pTemplate="body">
+<b>{{car.fullname}}</b><br />{{car.groupnamessj}}
+        </template>
+            </p-column>
+            <p-column field="D_UPDATE" header="วันที่เบิก/คืน" [sortable]="true" [style]="{'width':'100px','text-align':'center'}"></p-column>
+            <p-column styleClass="col-button" header="ตัวเลือก" [style]="{'width':'120px','text-align':'center'}">
+                <template let-car="rowData" let-rowIndex="rowIndex" pTemplate="body">
+                    <!--<a href="javascript:void(0);" *ngIf="car.stdel==1" (click)="geteditdel(2,car.GROUPCODE,'stdel')" tooltipPosition="top" pTooltip="ปิด">
+				<i class="ace-icon fa fa-eye fa-2x"></i>
+                    </a>
+                    <a href="javascript:void(0);" *ngIf="car.stdel==2" (click)="geteditdel(1,car.GROUPCODE,'stdel')" tooltipPosition="top" pTooltip="เปิด">
+                <i class="ace-icon fa fa-eye-slash fa-2x text-warning"></i>
+                    </a>|
+                                  <a href="javascript:void(0);" tooltipPosition="top"  data-target="#myModal" (click)="delete(car)" pTooltip="ลบข้อมูล">
+                <i class="ace-icon fa fa-trash-o fa-2x text-danger"></i> |
+                    </a>-->
+                    <a href="javascript:void(0);" tooltipPosition="top"  (click)="delete(car)" pTooltip="คืนครุภัณฑ์">
+               ส่งคืน
+                    </a>
+        </template>
+            </p-column>
+        </p-dataTable>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus"></i> เบิกครุภัณฑ์</h4>
+            </div>
+            <div class="modal-body">
+                <p-messages [value]="msgs"></p-messages>
+                <p-messages [value]="msgs2"></p-messages>
+                <form class="form-horizontal" role="form" (ngSubmit)="save();">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right">ชื่อครุภัณฑ์ ***</label>
+                        <div class="col-sm-9">
+                            <span class="input-icon">
+                            
+                              		<select class="form-control" [(ngModel)]="model.OID" id="OID" name="OID" pTooltip="รหัสครุภัณฑ์"  required>
+                                                    <option *ngFor="let item of models2;let i=index;" value="{{item.OID}}">{{item.MATIRALCODE_FULL}} - {{item.MATIRALNAME}}</option>
+                                                </select>
+											</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right">กลุ่มงาน/ฝ่าย ***</label>
+                        <div class="col-sm-9">
+                            <span class="input-icon">
+                            
+                              		<select class="form-control" [(ngModel)]="model.PARTYCODE" id="PARTYCODE" name="PARTYCODE"  (change)="selectfilter3($event)" pTooltip="กลุ่มงาน/ฝ่าย" disabled="{{!model.OID}}"  required>
+ <option *ngFor="let item of models5;let i=index"  [value]="item.groupcodessj">{{item.groupcodessj}} - {{item.groupnamessj}}</option>  
+                                                </select>
+											</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right">ชื่อผู้รับผิดชอบ ***</label>
+                        <div class="col-sm-9">
+                            <span class="input-icon">
+                            
+                              		<select class="form-control" [(ngModel)]="model.CID" id="CID" name="CID" pTooltip="ชื่อผู้รับผิดชอบ" disabled="{{!model.PARTYCODE}}"  required>
+                             <option *ngFor="let item of models9|scmatiral3:numtest3;let i=index"  [value]="item.cid"> {{i+1}} - {{item.fullname}}</option>
+                                                </select>
+											</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block"><i class="fa fa-floppy-o"></i> บันทึกข้อมูล</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>

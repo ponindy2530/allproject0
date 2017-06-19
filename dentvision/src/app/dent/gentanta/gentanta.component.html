@@ -1,0 +1,63 @@
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a routerLink="/" routerLinkActive="active">หน้าหลัก</a>
+        </li>
+        <li class="active">ข้อมูลทั่วไป</li>
+    </ul>
+    <!-- /.breadcrumb -->
+
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+        </form>
+    </div>
+    <!-- /.nav-search -->
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr height="18">
+                        <th rowspan="2" width="72">ลำดับ</th>
+                        <th rowspan="2" width="72">รหัส</th>
+                        <th rowspan="2" height="96" width="72">อำเภอ</th>
+                        <th width="72" rowspan="2">จำนวนรพ.สต.ทั้งหมด(แห่ง)</th>
+                        <th colspan="3" width="216">รพ.สต.ที่มีทันตาภิบาล</th>
+                        <th width="144" colspan="2">รพ.สต.ที่ไม่มีทันตาภิบาล</th>
+                    </tr>
+
+                    <tr height="19">
+                        <th width="216">จำนวน(แห่ง)</th>
+                        <th width="216">จำนวนทันตาภิบาล</th>
+                        <th width="216">จำนวนผู้ช่วยข้างเก้าอี้</th>
+                        <th width="144">จำนวน(แห่ง)</th>
+                        <th width="144">จำนวนToha</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of models;let i=index">
+                    <tr (click)="clickcoltr(i)" [ngClass]="{coltr: i==coli}">
+                        <td *ngFor="let item2 of models | keys;let j=index">
+                            <a routerLink="/Rpdent/{{item.ampcode}}" routerLinkActive="active" *ngIf="j==2">{{item[item2]}}</a>
+                            <span *ngIf="j!=2">{{item[item2]}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot *ngFor="let item of models1;let i=index">
+                    <tr>
+                        <th colspan="3">รวม</th>
+                        <td *ngFor="let item2 of models1 | keys;let j=index">
+                            {{models|sums:item2}}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
